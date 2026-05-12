@@ -33,6 +33,9 @@ public class Cuenta {
     @Column(nullable = false, unique = true)
     private String correo;
 
+    @NotBlank(message = "debe tener un nombre de usuario")
+    @Column(nullable = false, unique = true)
+    private String usuario;
 
     @NotBlank(message = "El campo de contraseña no puede ser vacio")
     @Column(nullable = false)
