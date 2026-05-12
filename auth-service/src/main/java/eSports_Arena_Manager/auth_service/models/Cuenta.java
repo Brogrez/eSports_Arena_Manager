@@ -25,6 +25,7 @@ import java.time.LocalDateTime;
 public class Cuenta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name ="cuenta_id")
     private Long cuentaId;
 
     @NotBlank(message = "El campo de correo no puede ser vacio")
