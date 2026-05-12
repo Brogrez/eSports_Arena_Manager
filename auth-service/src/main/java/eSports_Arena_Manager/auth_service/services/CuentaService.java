@@ -11,6 +11,6 @@ public interface CuentaService {
     Cuenta save(Cuenta cuenta);
     Cuenta updateById(Long id, Cuenta cuenta);
     void deleteById(Long id);
-    Cuenta findByUsuario(String usuario);
+
 
 }

@@ -18,6 +18,7 @@ import java.util.List;
 @RequestMapping("/api/v1/cuentas")
 @Validated
 public class CuentaController {
+
     @Autowired
     private CuentaService cuentaService;
 
@@ -35,11 +36,11 @@ public class CuentaController {
                     .body(cuentaService.findById(id));
     }
 
-    @GetMapping("/usuario/{usuario}")
-    public ResponseEntity<Cuenta> findByUsuario(@PathVariable String usuario){
+    @GetMapping("/rol/{rol}")
+    public ResponseEntity<List<Cuenta>> findByRol(@PathVariable String rol){
         return ResponseEntity
                     .status(HttpStatus.OK)
-                    .body(cuentaService.findByUsuario(usuario));
+                    .body(cuentaService.findAll().stream().filter(c -> c.getRol().equalsIgnoreCase(rol)).toList());
     }
 
     @GetMapping("/correo/{correo}")

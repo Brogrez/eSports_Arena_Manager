@@ -37,13 +37,7 @@ public class CuentaServiceImpl implements CuentaService {
         );
     }
 
-    @Transactional(readOnly = true)
-    @Override
-    public Cuenta findByUsuario(String usuario) {
-        return this.cuentaRepository.findByUsuario(usuario).orElseThrow(
-                () -> new CuentaException("Cuenta no encontrada")
-        );
-    }
+
 
     @Transactional
     @Override
@@ -51,18 +45,17 @@ public class CuentaServiceImpl implements CuentaService {
         if (this.findByCorreo(cuenta.getCorreo()) != null) {
             throw new CuentaException("Cuenta ya existente");
         }
-        if(this.findByUsuario(cuenta.getUsuario()) != null) {
-            throw new CuentaException("Cuenta ya existe");
-        }
         return this.cuentaRepository.save(cuenta);
     }
 
     @Override
     public Cuenta updateById(Long id, Cuenta cuenta) {
         return this.cuentaRepository.findById(id).map(c -> {
-            c.setUsuario(cuenta.getUsuario());
+            c.setPasswordHash(cuenta.getPasswordHash());
             c.setCorreo(cuenta.getCorreo());
-            c.setContrasenia(cuenta.getContrasenia());
+            c.setEstado(cuenta.getEstado());
+            c.setRol(cuenta.getRol());
+            c.setFechaCreacion(cuenta.getFechaCreacion());
             return this.cuentaRepository.save(c);
         }).orElseThrow(
                 () -> new CuentaException("Cuenta no encontrada")
