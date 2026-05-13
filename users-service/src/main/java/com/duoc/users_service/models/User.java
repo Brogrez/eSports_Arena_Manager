@@ -29,7 +29,7 @@ public class User {
     private String name;
 
     @NotBlank(message = "El campo de nickname no puede ser vacio")
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String nickname;
 
     @NotBlank(message = "El campo email no puede estar vacío")
