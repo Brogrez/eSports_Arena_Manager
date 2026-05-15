@@ -10,4 +10,5 @@ public interface GameRepository extends JpaRepository<Game, Long> {
     Optional<Game> findByModalidad(String modalidad);
     Optional<Game> findByName(String name);
     Optional<Game> findByEstado(String estado);
+    boolean existsByName(String name);
 }
