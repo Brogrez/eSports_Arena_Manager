@@ -20,7 +20,7 @@
         <module>auth-service</module>
         <module>game-service</module>
         <module>team-service</module>
-<!--        <module>tournament-service</module>-->
+        <module>tournament-service</module>
 <!--        <module>registration-service</module>-->
 <!--        <module>match-service</module>-->
 <!--        <module>result-service</module>-->
