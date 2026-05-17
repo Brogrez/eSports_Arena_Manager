@@ -9,7 +9,7 @@ public interface TourService {
     List<Tour> findAll();
     Tour findById(Long id);
     Tour save(Tour tournament);
-    Tour updateById(Tour tournament, Long id);
+    Tour updateById(Long id, Tour tournament);
     void deleteById(Long id);
 
     List<Tour> findByGameId(Long gameId);

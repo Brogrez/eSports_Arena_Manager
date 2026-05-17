@@ -60,7 +60,7 @@ public class TourServiceImpl implements TourService {
 
     @Transactional
     @Override
-    public Tour updateById(Tour tournament, Long id) {
+    public Tour updateById(Long id, Tour tournament) {
         return this.tourRepository.findById(id).map(t -> {
             if(t.getEstado().equals("EN_CURSO")){
                 throw new TourException("no se puede modificar torneos en curso");
