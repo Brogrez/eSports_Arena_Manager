@@ -25,7 +25,7 @@
 <!--        <module>match-service</module>-->
 <!--        <module>result-service</module>-->
 <!--        <module>ranking-service</module>-->
-<!--        <module>sanction-service</module>-->
+        <module>sanction-service</module>
 <!--        <module>prize-service</module>-->
 <!--        <module>notification-service</module>-->
     </modules>
