@@ -5,15 +5,16 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface TourRepository extends JpaRepository<Tour, Long> {
 
-    Optional<Tour> findByGameId(Long gameId);
+    List<Tour> findByGameId(Long gameId);
 
-    Optional<Tour> findByEstado(String estado);
+    List<Tour> findByEstado(String estado);
 
-    Optional<Tour> findByFechaInicio(LocalDate fechaInicio);
+    List<Tour> findByFechaInicio(LocalDate fechaInicio);
 
 }
