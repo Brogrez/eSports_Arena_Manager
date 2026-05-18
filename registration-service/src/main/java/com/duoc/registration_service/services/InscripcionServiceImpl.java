@@ -76,4 +76,11 @@ public class InscripcionServiceImpl  implements InscripcionService {
     public void deleteById(Long id) {
         this.inscripcionRepository.deleteById(id);
     }
+
+    @Override
+    public Inscripcion findByTorneoId(Long torneoId) {
+        return this.inscripcionRepository.findByTorneoId(torneoId).orElseThrow(
+                () -> new InscripcionException("Torneo no encontrado")
+        );
+    }
 }
