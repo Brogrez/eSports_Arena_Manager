@@ -12,4 +12,5 @@ public interface InscripcionService {
     Inscripcion save(Inscripcion inscripcion);
     Inscripcion updateById(Inscripcion inscripcion);
     void deleteById(Long id);
+    Inscripcion findByTorneoId (Long torneoId);
 }
