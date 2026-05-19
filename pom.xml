@@ -21,7 +21,7 @@
         <module>game-service</module>
         <module>team-service</module>
         <module>tournament-service</module>
-       <!-- <module>registration-service</module>-->
+        <module>registration-service</module>
 <!--        <module>match-service</module>-->
 <!--        <module>result-service</module>-->
 <!--        <module>ranking-service</module>-->
