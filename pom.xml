@@ -27,7 +27,7 @@
 <!--        <module>ranking-service</module>-->
         <module>sanction-service</module>
 <!--        <module>prize-service</module>-->
-<!--        <module>notification-service</module>-->
+       <module>notification-service</module>
     </modules>
 
 </project>
