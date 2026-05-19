@@ -17,11 +17,6 @@ public class EquipoController {
     @Autowired
     private EquipoService equipoService;
 
-    public EquipoController(EquipoService equipoService) {
-        this.equipoService = equipoService;
-    }
-
-
     @GetMapping
     public ResponseEntity<List<Equipo>> findAll() {
         return ResponseEntity
