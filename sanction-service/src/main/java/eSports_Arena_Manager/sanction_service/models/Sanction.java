@@ -27,6 +27,10 @@ public class Sanction {
     @Column(name = "usuario_id", nullable = false)
     private Long usuarioId;
 
+    @NotNull(message = "El campo de ID de equipo no puede ser vacio")
+    @Column(name = "equipo_id", nullable = false)
+    private Long equipoId;
+
     @NotBlank(message = "El campo de motivo no puede ser vacio")
     @Column(nullable = false)
     private String motivo;
