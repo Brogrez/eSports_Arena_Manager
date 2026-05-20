@@ -31,7 +31,7 @@ public class SanctionServiceImpl implements SanctionService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<Sanction> findByUsuarioId(Long usuarioId) {
+    public Sanction findByUsuarioId(Long usuarioId) {
         // Importante: Tu Repository debe tener el método: Optional<List<Sanction>> findByUsuarioId(Long usuarioId);
         return this.sanctionRepository.findByUsuarioId(usuarioId).orElseThrow(
                 () -> new SanctionException("No se encontraron sanciones para el usuario con ID: " + usuarioId)

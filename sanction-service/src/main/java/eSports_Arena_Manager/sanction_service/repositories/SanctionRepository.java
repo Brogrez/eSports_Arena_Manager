@@ -8,6 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface SanctionRepository extends JpaRepository<Sanction, Long> {
-    // Este nombre debe coincidir con el que usamos en el Service
-    Optional<List<Sanction>> findByUsuarioId(Long usuarioId);
+    Optional<Sanction> findByUsuarioId(Long usuarioId);
 }
