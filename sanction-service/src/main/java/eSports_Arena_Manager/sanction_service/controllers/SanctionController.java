@@ -1,68 +1,68 @@
 package eSports_Arena_Manager.sanction_service.controllers;
 
+
 import eSports_Arena_Manager.sanction_service.models.Sanction;
 import eSports_Arena_Manager.sanction_service.services.SanctionService;
 import jakarta.validation.Valid;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
-@RequestMapping("/api/sanctions")
+@RequestMapping("/api/v1/sanctions")
+@Validated
 public class SanctionController {
-
     @Autowired
     private SanctionService sanctionService;
 
     @GetMapping
-    public List<Sanction> getAll() {
-        return sanctionService.findAll();
+    public ResponseEntity<List<Sanction>> findAll(){
+        return ResponseEntity.status(HttpStatus.OK).body(sanctionService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getById(@PathVariable Long id) {
-        return ResponseEntity.ok(sanctionService.findById(id));
-    }
-
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<?> getByUserId(@PathVariable Long userId) {
-        return ResponseEntity.ok(sanctionService.findByUsuarioId(userId));
+    public ResponseEntity<Sanction> findById(@PathVariable Long id){
+        return ResponseEntity.status(HttpStatus.OK).body(sanctionService.findById(id));
     }
 
     @PostMapping
-    public ResponseEntity<?> create(@Valid @RequestBody Sanction sanction, BindingResult result) {
-        if (result.hasErrors()) {
-            return validate(result);
-        }
+    public ResponseEntity<Sanction> save(@Valid @RequestBody Sanction sanction){
         return ResponseEntity.status(HttpStatus.CREATED).body(sanctionService.save(sanction));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@Valid @RequestBody Sanction sanction, BindingResult result, @PathVariable Long id) {
-        if (result.hasErrors()) {
-            return validate(result);
-        }
-        return ResponseEntity.status(HttpStatus.CREATED).body(sanctionService.updateById(id, sanction));
+    public ResponseEntity<Sanction> updateById(@PathVariable Long id, @Valid @RequestBody Sanction sanction){
+        return ResponseEntity.status(HttpStatus.OK).body(sanctionService.updateById(id, sanction));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteByid(@PathVariable Long id){
         sanctionService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 
-    // Método para manejar los mensajes de error de validación (estándar de Spring)
-    private ResponseEntity<Map<String, String>> validate(BindingResult result) {
-        Map<String, String> errors = new HashMap<>();
-        result.getFieldErrors().forEach(err -> {
-            errors.put(err.getField(), "El campo " + err.getField() + " " + err.getDefaultMessage());
-        });
-        return ResponseEntity.badRequest().body(errors);
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<Sanction>> findByUsuarioId(@PathVariable Long userId){
+        return ResponseEntity.status(HttpStatus.OK).body(sanctionService.findByUsuarioId(userId));
+    }
+
+    @GetMapping("/team/{teamId}")
+    public ResponseEntity<List<Sanction>> findByTeamId(@PathVariable Long teamId){
+        return ResponseEntity.status(HttpStatus.OK).body(sanctionService.findByTeamId(teamId));
+    }
+
+    @GetMapping("/estado/{estado}")
+    public ResponseEntity<List<Sanction>> findByEstado(@PathVariable String estado){
+        return ResponseEntity.status(HttpStatus.OK).body(sanctionService.findByEstado(estado));
+    }
+
+    @PatchMapping("/{id}/cerrar")
+    public ResponseEntity<Sanction> cerrar(@PathVariable Long id){
+        return ResponseEntity.status(HttpStatus.OK).body(sanctionService.cerrar(id));
     }
 }
