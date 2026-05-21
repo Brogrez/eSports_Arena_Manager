@@ -47,6 +47,10 @@ public class Sanction {
     @Column(name = "fecha_fin", nullable = false)
     private LocalDateTime fechaFin;
 
+    @NotBlank(message = "La severidad no puede estar vacía")
+    @Column(nullable = false)
+    private String severidad;
+
     @Embedded
     private Audit audit = new Audit();
 }

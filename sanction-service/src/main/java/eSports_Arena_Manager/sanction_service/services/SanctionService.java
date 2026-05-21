@@ -9,6 +9,9 @@ public interface SanctionService {
     Sanction save(Sanction sanction);
     void deleteById(Long id);
     Sanction updateById(Long id, Sanction sanction);
-    Sanction findByUsuarioId(Long usuarioId);
+    List<Sanction> findByUsuarioId(Long usuarioId);
+    List<Sanction> findByTeamId(Long teamId);
+    List<Sanction> findByEstado(String estado);
+    Sanction cerrar(Long id);
 }
 
