@@ -8,5 +8,19 @@ import java.util.Optional;
 
 @Repository
 public interface SanctionRepository extends JpaRepository<Sanction, Long> {
-    Optional<Sanction> findByUsuarioId(Long usuarioId);
+    // Listar por usuario
+    List<Sanction> findByUsuarioId(Long usuarioId);
+
+    // Listar por equipo
+    List<Sanction> findByEquipoId(Long equipoId);
+
+    // Listar por estado
+    List<Sanction> findByEstado(String estado);
+
+    // Verificar si un usuario tiene sanción activa
+    boolean existsByUsuarioIdAndEstado(Long usuarioId, String estado);
+
+    // Verificar si un equipo tiene sanción activa
+    boolean existsByEquipoIdAndEstado(Long equipoId, String estado);
 }
+
