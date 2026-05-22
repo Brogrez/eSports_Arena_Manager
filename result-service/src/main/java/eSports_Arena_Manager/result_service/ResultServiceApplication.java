@@ -1,4 +1,4 @@
-package com.duoc.result_service;
+package eSports_Arena_Manager.result_service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
