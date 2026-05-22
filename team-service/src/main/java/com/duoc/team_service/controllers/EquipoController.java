@@ -12,15 +12,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/equipos")
+
 public class EquipoController {
 
     @Autowired
     private EquipoService equipoService;
-
-    public EquipoController(EquipoService equipoService) {
-        this.equipoService = equipoService;
-    }
-
 
     @GetMapping
     public ResponseEntity<List<Equipo>> findAll() {

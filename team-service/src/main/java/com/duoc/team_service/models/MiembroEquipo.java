@@ -23,7 +23,7 @@ public class MiembroEquipo {
 
     @NotNull(message = "Debe tener el id correspondiente")
     @Column(nullable = false)
-    private Long equipoId;
+    private Long mEquipoId;
 
     @NotNull(message = "debe tener el id del miembro de equipo")
     @Column(nullable = false)
@@ -33,5 +33,7 @@ public class MiembroEquipo {
     @Column(nullable = false)
     private String rolDentroEquipo;
 
+    @Embedded
+    private Audit audit = new Audit();
 
 }
