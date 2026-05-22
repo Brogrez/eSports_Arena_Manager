@@ -15,6 +15,5 @@ public interface ResultRepository extends JpaRepository<Result, Long> {
 
     List<Result> findByEstado(String estado);
 
-
     boolean existsByMatchId(Long matchId);
 }

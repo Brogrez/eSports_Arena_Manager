@@ -23,24 +23,30 @@ public class Result {
     private Long id;
 
     @NotNull(message = "El ID del partido no puede ser nulo")
+    @Column(name = "match_id") // Agregado para estandarizar la BD
     private Long matchId;
 
     @NotNull(message = "El ID del equipo A no puede ser nulo")
+    @Column(name = "team_a_id") // Agregado para estandarizar la BD
     private Long teamAId;
 
     @NotNull(message = "El ID del equipo B no puede ser nulo")
+    @Column(name = "team_b_id") // Agregado para estandarizar la BD
     private Long teamBId;
 
     @Min(value = 0, message = "El puntaje del equipo A no puede ser negativo")
+    @Column(name = "score_a") // Agregado para estandarizar la BD
     private Integer scoreA;
 
     @Min(value = 0, message = "El puntaje del equipo B no puede ser negativo")
+    @Column(name = "score_b") // Agregado para estandarizar la BD
     private Integer scoreB;
 
+    @Column(name = "winner_id") // Agregado para estandarizar la BD
     private Long winnerId;
 
     @NotBlank(message = "El estado del resultado no puede estar vacío")
-    private String estado;
+    private String estado; // Como es una sola palabra, no es obligatorio el @Column
 
     @Embedded
     private Audit audit = new Audit();
