@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/equipos")
+
 public class EquipoController {
 
     @Autowired
