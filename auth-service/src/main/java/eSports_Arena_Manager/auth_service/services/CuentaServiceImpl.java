@@ -21,7 +21,7 @@ public class CuentaServiceImpl implements CuentaService {
     @Autowired
     private CuentaRepository cuentaRepository;
 
-    @Autowired
+
     private UsuarioClient usuarioClient;
 
     @Transactional(readOnly = true)
