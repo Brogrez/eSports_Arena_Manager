@@ -29,12 +29,14 @@ public class Equipo {
     private Long capitanId;
 
     @NotNull(message = "debe tener el id del juego participante")
-    @Column(nullable = false)
+    @Column(name = "game_id", nullable = false)
     private Long JuegoPrincipalId;
 
     @NotBlank
     @Column(nullable = false)
     private String estado;
+
+
 
     @Embedded
     private Audit audit = new Audit();
