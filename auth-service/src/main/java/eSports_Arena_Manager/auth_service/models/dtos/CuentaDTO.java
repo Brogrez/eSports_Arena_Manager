@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -18,7 +19,7 @@ public class CuentaDTO {
     private String correo;
     private String rol;
     private String estado;
-    private LocalDate fechaCreacion;
+    private LocalDateTime fechaCreacion;
 
 
 }
