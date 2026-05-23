@@ -41,7 +41,7 @@ public class EquipoServiceImpl implements EquipoService {
     @Transactional(readOnly = true)
     @Override
     public Equipo findByNombreEquipo(String nombreEquipo) {
-        return this.equipoRepository.findByEquipoNombre(nombreEquipo).orElseThrow(
+        return this.equipoRepository.findByNombreEquipo(nombreEquipo).orElseThrow(
                 () -> new EquipoException("Equipo no encontrado")
         );
     }
@@ -56,7 +56,7 @@ public class EquipoServiceImpl implements EquipoService {
     @Transactional
     @Override
     public Equipo save(Equipo equipo) {
-        if(this.equipoRepository.findByEquipoNombre(equipo.getNombreEquipo()).isPresent()){
+        if(this.equipoRepository.findByNombreEquipo(equipo.getNombreEquipo()).isPresent()){
             throw new EquipoException("Equipo existente");
         }
         return this.equipoRepository.save(equipo);
