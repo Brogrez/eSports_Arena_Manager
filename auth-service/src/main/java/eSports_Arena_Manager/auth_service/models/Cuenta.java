@@ -51,7 +51,7 @@ public class Cuenta {
 
     @NotNull(message = "el ID de usuario no puede ser nulo")
     @Column(name = "user_id", nullable = false)
-    private Long idUsuario;
+    private Long usuarioId;
 
 
     @Embedded
