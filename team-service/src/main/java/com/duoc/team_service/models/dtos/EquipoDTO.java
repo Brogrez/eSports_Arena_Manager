@@ -15,6 +15,7 @@ public class EquipoDTO {
     private String nombreEquipo;
     private String juegoPrincipal;
     private String estado;
-
+    private Long juegoPrincipalId;
+    private Long capitanId;
 
 }
