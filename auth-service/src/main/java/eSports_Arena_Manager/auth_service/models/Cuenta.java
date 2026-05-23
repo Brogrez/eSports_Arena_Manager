@@ -49,6 +49,10 @@ public class Cuenta {
     @Column(nullable = false)
     private LocalDateTime fechaCreacion;
 
+    @NotNull(message = "el ID de usuario no puede ser nulo")
+    @Column(name = "user_id", nullable = false)
+    private Long usuarioId;
+
 
     @Embedded
     private Audit audit = new Audit();
