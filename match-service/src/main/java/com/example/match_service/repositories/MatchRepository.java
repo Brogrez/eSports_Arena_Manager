@@ -11,5 +11,5 @@ public interface MatchRepository extends JpaRepository<Match, Long> {
     List<Match> findByTourId(Long tourId);
     List<Match> findByEstado(String estado);
     List<Match> findByRound(String round);
-    boolean existsByABR(Long participanteAId, Long participanteBId, String round);
+    boolean existsByParticipanteAIdAndParticipanteBIdAndRound(Long participanteAId, Long participanteBId, String round);
 }

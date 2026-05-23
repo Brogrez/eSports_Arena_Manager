@@ -69,7 +69,7 @@ public class MatchServiceImpl implements MatchService {
             throw new MatchExceptions("La inscripción del participante B con id " + match.getParticipanteBId() + " no existe");
         }
 
-        if (matchRepository.existsByABR(
+        if (matchRepository.existsByParticipanteAIdAndParticipanteBIdAndRound(
                 match.getParticipanteAId(), match.getParticipanteBId(), match.getRound())) {
             throw new MatchExceptions("Ya existe un enfrentamiento entre estos participantes en la ronda " + match.getRound());
         }
