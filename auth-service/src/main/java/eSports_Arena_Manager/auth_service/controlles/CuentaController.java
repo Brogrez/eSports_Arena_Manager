@@ -2,6 +2,7 @@ package eSports_Arena_Manager.auth_service.controlles;
 
 
 import eSports_Arena_Manager.auth_service.models.Cuenta;
+import eSports_Arena_Manager.auth_service.models.dtos.CuentaDTO;
 import eSports_Arena_Manager.auth_service.services.CuentaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,7 @@ public class CuentaController {
     private CuentaService cuentaService;
 
     @GetMapping
-    public ResponseEntity<List<Cuenta>> findAll() {
+    public ResponseEntity<List<CuentaDTO>> findAll() {
         return ResponseEntity
                     .status(HttpStatus.OK)
                     .body(cuentaService.findAll());
@@ -37,7 +38,7 @@ public class CuentaController {
     }
 
     @GetMapping("/rol/{rol}")
-    public ResponseEntity<List<Cuenta>> findByRol(@PathVariable String rol){
+    public ResponseEntity<List<CuentaDTO>> findByRol(@PathVariable String rol){
         return ResponseEntity
                     .status(HttpStatus.OK)
                     .body(cuentaService.findAll().stream().filter(c -> c.getRol().equalsIgnoreCase(rol)).toList());
@@ -48,5 +49,10 @@ public class CuentaController {
         return ResponseEntity
                     .status(HttpStatus.OK)
                     .body(cuentaService.findByCorreo(correo));
+    }
+
+    @GetMapping("/usuario/{usuarioId}")
+    public ResponseEntity<List<Cuenta>> findByUsuarioId(@PathVariable Long usuarioId){
+        return ResponseEntity.ok(cuentaService.findByUsuarioId(usuarioId));
     }
 }

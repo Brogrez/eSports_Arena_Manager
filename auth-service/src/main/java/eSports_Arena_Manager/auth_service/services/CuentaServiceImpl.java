@@ -1,13 +1,19 @@
 package eSports_Arena_Manager.auth_service.services;
 
+import eSports_Arena_Manager.auth_service.clients.UsuarioClient;
 import eSports_Arena_Manager.auth_service.exceptions.CuentaException;
 import eSports_Arena_Manager.auth_service.models.Cuenta;
+import eSports_Arena_Manager.auth_service.models.dtos.CuentaDTO;
+import eSports_Arena_Manager.auth_service.models.dtos.UsuarioDTO;
 import eSports_Arena_Manager.auth_service.repositories.CuentaRepository;
+import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 @Service
 public class CuentaServiceImpl implements CuentaService {
@@ -15,10 +21,30 @@ public class CuentaServiceImpl implements CuentaService {
     @Autowired
     private CuentaRepository cuentaRepository;
 
+
+    private UsuarioClient usuarioClient;
+
     @Transactional(readOnly = true)
     @Override
-    public List<Cuenta> findAll() {
-        return this.cuentaRepository.findAll();
+    public List<CuentaDTO> findAll() {
+        return this.cuentaRepository.findAll().stream().map(c -> {
+            CuentaDTO cuentaDTO = new CuentaDTO();
+            cuentaDTO.setId(c.getCuentaId());
+            cuentaDTO.setCorreo(c.getCorreo());
+            cuentaDTO.setRol(c.getRol());
+            cuentaDTO.setEstado(c.getEstado());
+            cuentaDTO.setFechaCreacion(c.getFechaCreacion());
+            UsuarioDTO usuarioDTO = null;
+            try{
+                usuarioDTO = usuarioClient.findById(c.getUsuarioId());
+            }catch(FeignException e){
+                throw new CuentaException(e.getMessage());
+            }
+            return cuentaDTO;
+
+        }).toList();
+
+
     }
 
     @Transactional(readOnly = true)
@@ -42,8 +68,10 @@ public class CuentaServiceImpl implements CuentaService {
     @Transactional
     @Override
     public Cuenta save(Cuenta cuenta) {
-        if (this.findByCorreo(cuenta.getCorreo()) != null) {
-            throw new CuentaException("Cuenta ya existente");
+        try{
+            UsuarioDTO usuarioDTO = this.usuarioClient.findById(cuenta.getUsuarioId());
+        } catch (FeignException exception) {
+            throw new CuentaException("el usuario con id"+ cuenta.getUsuarioId()+" no existe");
         }
         return this.cuentaRepository.save(cuenta);
     }
@@ -56,6 +84,12 @@ public class CuentaServiceImpl implements CuentaService {
             c.setEstado(cuenta.getEstado());
             c.setRol(cuenta.getRol());
             c.setFechaCreacion(cuenta.getFechaCreacion());
+            try{
+                UsuarioDTO usuarioDTO = this.usuarioClient.findById(cuenta.getUsuarioId());
+            } catch (FeignException exception) {
+                throw new CuentaException("el usuario con id"+ cuenta.getUsuarioId()+" no existe");
+            }
+
             return this.cuentaRepository.save(c);
         }).orElseThrow(
                 () -> new CuentaException("Cuenta no encontrada")
@@ -65,5 +99,10 @@ public class CuentaServiceImpl implements CuentaService {
     @Override
     public void deleteById(Long id) {
         this.cuentaRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Cuenta> findByUsuarioId(Long idUsuario) {
+        return this.cuentaRepository.findByUsuarioId(idUsuario);
     }
 }

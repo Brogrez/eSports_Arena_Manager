@@ -27,6 +27,10 @@ public class Sanction {
     @Column(name = "usuario_id", nullable = false)
     private Long usuarioId;
 
+    @NotNull(message = "El campo de ID de equipo no puede ser vacio")
+    @Column(name = "equipo_id", nullable = false)
+    private Long equipoId;
+
     @NotBlank(message = "El campo de motivo no puede ser vacio")
     @Column(nullable = false)
     private String motivo;
@@ -42,6 +46,10 @@ public class Sanction {
     @NotNull(message = "El campo de fecha de fin no puede ser vacio")
     @Column(name = "fecha_fin", nullable = false)
     private LocalDateTime fechaFin;
+
+    @NotBlank(message = "La severidad no puede estar vacía")
+    @Column(nullable = false)
+    private String severidad;
 
     @Embedded
     private Audit audit = new Audit();
