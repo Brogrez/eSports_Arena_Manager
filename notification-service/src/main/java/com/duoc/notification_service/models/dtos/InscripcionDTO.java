@@ -9,9 +9,9 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
-public class RegistroDTO {
+public class InscripcionDTO {
 
-    private Long registroId;
+    private Long inscripcionId;
     private Long equipoId;
     private Long jugadorId;
     private String tipoParticipante;
