@@ -1,6 +1,5 @@
 package com.duoc.team_service.services;
 
-import com.duoc.team_service.clients.GameClient;
 import com.duoc.team_service.clients.UsuarioClient;
 import com.duoc.team_service.exceptions.MiembroEquipoException;
 import com.duoc.team_service.models.MiembroEquipo;
@@ -74,8 +73,8 @@ public class MiembroEquipoServiceImpl implements MiembroEquipoService {
 
     @Transactional
     @Override
-    public MiembroEquipo save(Long usuarioId,MiembroEquipo miembroEquipo) {
-        if(this.miembroEquipoRepository.findByUsuarioId(usuarioId).isPresent()){
+    public MiembroEquipo save(MiembroEquipo miembroEquipo) {
+        if(this.miembroEquipoRepository.findByUsuarioId(miembroEquipo.getUsuarioId()).isPresent()){
             throw new MiembroEquipoException("Usuario ya es miembro de un equipo");
         }
         return this.miembroEquipoRepository.save(miembroEquipo);
