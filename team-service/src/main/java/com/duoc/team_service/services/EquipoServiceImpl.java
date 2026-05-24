@@ -21,6 +21,7 @@ public class EquipoServiceImpl implements EquipoService {
     @Autowired
     private EquipoRepository equipoRepository;
 
+
     @Autowired
     private GameClient gameClient;
 
