@@ -21,7 +21,7 @@ public class MiembroEquipoServiceImpl implements MiembroEquipoService {
     private MiembroEquipoRepository miembroEquipoRepository;
 
     @Autowired
-    private UsuarioClient userClient;
+    private UsuarioClient usuarioClient;
 
 
 
@@ -39,7 +39,7 @@ public class MiembroEquipoServiceImpl implements MiembroEquipoService {
             miembroEquipoDTO.setMiembroId(m.getMiembroId());
             miembroEquipoDTO.setRolEnEquipo(m.getRolDentroEquipo());
             try{
-                UsuarioDTO usuarioDTO = userClient.findById(m.getUsuarioId());
+                UsuarioDTO usuarioDTO = usuarioClient.findById(m.getUsuarioId());
             }catch(FeignException e){
                 throw new MiembroEquipoException(e.getMessage());
             }
