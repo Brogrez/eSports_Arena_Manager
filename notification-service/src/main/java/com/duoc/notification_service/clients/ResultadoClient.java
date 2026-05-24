@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface ResultadoClient {
 
     @GetMapping("/{id}")
-    ResultadoDTO findbyid(@PathVariable Long id);
+    ResultadoDTO findbyId(@PathVariable Long id);;
 
 }

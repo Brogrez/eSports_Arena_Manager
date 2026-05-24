@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface SancionClient {
 
     @GetMapping("/{id}")
-    SancionDTO findbyid(@PathVariable Long id);
+    SancionDTO findbyId(@PathVariable Long id);;
 
 }

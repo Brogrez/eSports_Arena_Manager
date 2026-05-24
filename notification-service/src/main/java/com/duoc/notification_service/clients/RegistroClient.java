@@ -9,5 +9,5 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface RegistroClient {
 
     @GetMapping("/{id}")
-    InscripcionDTO findbyid(@PathVariable Long id);
+    InscripcionDTO findbyId(@PathVariable Long id);;
 }

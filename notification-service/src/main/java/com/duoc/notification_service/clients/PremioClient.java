@@ -10,5 +10,5 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface PremioClient {
 
     @GetMapping("/{id}")
-    PremioDTO findbyid(@PathVariable Long id);
+    PremioDTO findbyId(@PathVariable Long id);;
 }
