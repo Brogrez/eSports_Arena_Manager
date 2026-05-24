@@ -11,7 +11,7 @@ public interface InscripcionService {
     Inscripcion findByJugadorId(Long jugadorId);
     Inscripcion findByEquipoId(Long equipoId);
     Inscripcion save(Inscripcion inscripcion);
-    Inscripcion updateById(Inscripcion inscripcion);
+    Inscripcion updateById(Inscripcion inscripcion, Long id);
     void deleteById(Long id);
     Inscripcion findByTorneoId (Long torneoId);
 }
