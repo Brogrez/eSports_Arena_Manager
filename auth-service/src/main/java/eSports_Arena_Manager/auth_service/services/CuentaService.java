@@ -12,6 +12,6 @@ public interface CuentaService {
     Cuenta save(Cuenta cuenta);
     Cuenta updateById(Long id, Cuenta cuenta);
     void deleteById(Long id);
-    List<Cuenta>findByUsuarioId(Long idUsuario);
+    List<Cuenta>findByUserId(Long userId);
 
 }

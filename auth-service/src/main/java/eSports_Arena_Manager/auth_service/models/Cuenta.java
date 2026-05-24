@@ -45,13 +45,12 @@ public class Cuenta {
     @Column(nullable = false)
     private String estado;
 
-    @NotNull(message = "El campo de fecha de creacion no puede ser vacio")
     @Column(nullable = false)
     private LocalDateTime fechaCreacion;
 
     @NotNull(message = "el ID de usuario no puede ser nulo")
     @Column(name = "user_id", nullable = false)
-    private Long usuarioId;
+    private Long userId;
 
 
     @Embedded

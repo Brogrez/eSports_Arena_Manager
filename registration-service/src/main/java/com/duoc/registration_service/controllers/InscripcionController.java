@@ -36,6 +36,13 @@ public class InscripcionController {
                 .body(inscripcionService.findAll());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Inscripcion> findById(@PathVariable Long id) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(inscripcionService.findByInscripcionId(id));
+    }
+
     @GetMapping("/torneo/{torneoId}")
     public ResponseEntity<List<Inscripcion>> findByTorneoId(@PathVariable Long torneoId) {
         return ResponseEntity
@@ -69,6 +76,11 @@ public class InscripcionController {
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
                 .build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Inscripcion> updateById(@PathVariable Long id, @Valid @RequestBody Inscripcion inscripcion) {
+        return ResponseEntity.status(HttpStatus.OK).body(inscripcionService.updateById(inscripcion, id));
     }
 
 }

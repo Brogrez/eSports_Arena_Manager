@@ -6,10 +6,7 @@ import com.duoc.registration_service.clients.TorneoClient;
 import com.duoc.registration_service.clients.UsuarioClient;
 import com.duoc.registration_service.exceptions.InscripcionException;
 import com.duoc.registration_service.models.Inscripcion;
-import com.duoc.registration_service.models.dtos.EquipoDTO;
-import com.duoc.registration_service.models.dtos.InscripcionDTO;
-import com.duoc.registration_service.models.dtos.SancionDTO;
-import com.duoc.registration_service.models.dtos.UsuarioDTO;
+import com.duoc.registration_service.models.dtos.*;
 import com.duoc.registration_service.repositories.InscripcionRepository;
 import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,30 +75,45 @@ public class InscripcionServiceImpl  implements InscripcionService {
     @Transactional
     @Override
     public Inscripcion save(Inscripcion inscripcion) {
-       try {
-              if (torneoClient.findById(inscripcion.getTorneoId()).getFechaInicio().before(inscripcion.getFechaInscripcion())) {
-                throw new InscripcionException("El torneo ya empezó, no se pueden inscribir jugadores");
-              }
-              SancionDTO sancionDTO = sancionClient.findbyid(inscripcion.getJugadorId());
-              if (sancionDTO != null) {
-                throw new InscripcionException("El jugador tiene una sancion vigente, no se puede inscribir");
-              }
-       }catch(FeignException e){
-              throw new InscripcionException(e.getMessage());
 
+        // Validar que el torneo existe y no ha empezado
+        try {
+            TorneoDTO torneo = torneoClient.findById(inscripcion.getTorneoId());
+            if (torneo.getFechaInicio().before(inscripcion.getFechaInscripcion())) {
+                throw new InscripcionException("El torneo ya empezó, no se pueden inscribir jugadores");
+            }
+        } catch (FeignException e) {
+            throw new InscripcionException("El torneo con id " + inscripcion.getTorneoId() + " no existe");
         }
 
-       try{
-           EquipoDTO equipoDTO = this.equipoClient.findById(inscripcion.getEquipoId());
-         }catch (FeignException e){
-           throw new InscripcionException("El equipo con id "+ inscripcion.getEquipoId() +" no existe");
-       }
-       try{
-           UsuarioDTO usuarioDTO = this.usuarioClient.findById(inscripcion.getJugadorId());
-       }catch (FeignException e){
-           throw new InscripcionException("El usuario con id "+ inscripcion.getJugadorId() +" no existe");
-       }
-         return this.inscripcionRepository.save(inscripcion);
+        // Validar sanción — 404 significa sin sanción, puede inscribirse
+        try {
+            SancionDTO sancionDTO = sancionClient.findbyid(inscripcion.getJugadorId());
+            if (sancionDTO.getEstado().equals("ACTIVA")) {
+                throw new InscripcionException("El jugador tiene una sancion vigente, no puede inscribirse");
+            }
+        } catch (FeignException.NotFound e) {
+            // 404 = no tiene sanción = puede inscribirse
+        } catch (FeignException e) {
+            throw new InscripcionException("Error al consultar sanciones: " + e.getMessage());
+        }
+
+        // Validar que el equipo existe
+        try {
+            EquipoDTO equipoDTO = this.equipoClient.findById(inscripcion.getEquipoId());
+        } catch (FeignException e) {
+            throw new InscripcionException("El equipo con id " + inscripcion.getEquipoId() + " no existe");
+        }
+
+        // Validar que el usuario existe
+        try {
+            UsuarioDTO usuarioDTO = this.usuarioClient.findById(inscripcion.getJugadorId());
+        } catch (FeignException e) {
+            throw new InscripcionException("El usuario con id " + inscripcion.getJugadorId() + " no existe");
+        }
+
+        inscripcion.setEstado("ACTIVO");
+        return this.inscripcionRepository.save(inscripcion);
     }
 
     @Override
