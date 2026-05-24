@@ -1,6 +1,7 @@
 package com.duoc.team_service.controllers;
 
 import com.duoc.team_service.models.MiembroEquipo;
+import com.duoc.team_service.models.dtos.MiembroEquipoDTO;
 import com.duoc.team_service.services.MiembroEquipoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,7 +22,7 @@ public class MiembroEquipoController {
     private MiembroEquipoService miembroEquipoService;
 
     @GetMapping
-    public ResponseEntity<List<MiembroEquipo>> findAll() {
+    public ResponseEntity<List<MiembroEquipoDTO>> findAll() {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(miembroEquipoService.findAll());
@@ -31,7 +32,7 @@ public class MiembroEquipoController {
     public ResponseEntity<MiembroEquipo> getById(@PathVariable Long id) {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(miembroEquipoService.findByMiembroId(id));
+                .body(miembroEquipoService.findBymEquipoId(id));
     }
 
     @GetMapping("/equipo/{mEquipoId}")
@@ -42,7 +43,7 @@ public class MiembroEquipoController {
     }
 
     @GetMapping("/usuario/{usuarioId}")
-    public ResponseEntity<MiembroEquipo> findByUsuarioId(@PathVariable Long usuarioId) {
+    public ResponseEntity<List<MiembroEquipo>>findByUsuarioId(@PathVariable Long usuarioId) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(miembroEquipoService.findByUsuarioId(usuarioId));

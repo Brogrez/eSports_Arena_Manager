@@ -1,9 +1,13 @@
 package com.duoc.team_service.services;
 
+import com.duoc.team_service.clients.GameClient;
 import com.duoc.team_service.exceptions.EquipoException;
 import com.duoc.team_service.models.Equipo;
+import com.duoc.team_service.models.dtos.EquipoDTO;
+import com.duoc.team_service.models.dtos.GameDTO;
 import com.duoc.team_service.repositories.EquipoRepository;
 
+import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,10 +21,27 @@ public class EquipoServiceImpl implements EquipoService {
     @Autowired
     private EquipoRepository equipoRepository;
 
+    private GameClient gameClient;
+
     @Transactional(readOnly = true)
     @Override
-    public List<Equipo> findAll() {
-        return equipoRepository.findAll();
+    public List<EquipoDTO> findAll() {
+        return equipoRepository.findAll().stream().map(e -> {
+            EquipoDTO equipoDTO = new EquipoDTO();
+            equipoDTO.setEquipoId(e.getEquipoId());
+            equipoDTO.setNombreEquipo(e.getNombreEquipo());
+            equipoDTO.setCapitanId(e.getCapitanId());
+            equipoDTO.setEstado(e.getEstado());
+            try{
+                GameDTO juegoDTO = gameClient.findById(e.getJuegoPrincipalId());
+            }catch(FeignException ex){
+                throw new EquipoException(ex.getMessage());
+            }
+            GameDTO gameDTO = new GameDTO();
+            gameDTO.setGameId(e.getJuegoPrincipalId());
+            equipoDTO.setJuegoPrincipalId(gameDTO.getGameId());
+            return equipoDTO;
+        }).toList();
     }
 
     @Transactional(readOnly = true)
@@ -45,6 +66,13 @@ public class EquipoServiceImpl implements EquipoService {
                 () -> new EquipoException("Equipo no encontrado")
         );
     }
+
+    @Override
+    public List<Equipo> findByJuegoPrincipalId(Long juegoId) {
+        return this.equipoRepository.findByJuegoPrincipalId(juegoId);
+    }
+
+
     @Transactional(readOnly = true)
     @Override
     public Equipo findByEquipoId(Long equipoId) {

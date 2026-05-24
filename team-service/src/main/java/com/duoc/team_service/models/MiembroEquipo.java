@@ -26,7 +26,7 @@ public class MiembroEquipo {
     private Long mEquipoId;
 
     @NotNull(message = "debe tener el id del miembro de equipo")
-    @Column(nullable = false)
+    @Column(name = "user_id", nullable = false)
     private Long usuarioId;
 
     @NotBlank(message = "el miembro debe tener un rol")

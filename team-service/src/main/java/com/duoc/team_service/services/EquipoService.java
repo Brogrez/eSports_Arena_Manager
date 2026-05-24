@@ -1,12 +1,13 @@
 package com.duoc.team_service.services;
 
 import com.duoc.team_service.models.Equipo;
+import com.duoc.team_service.models.dtos.EquipoDTO;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface EquipoService {
-    List<Equipo> findAll();
+    List<EquipoDTO> findAll();
     Equipo findByCapitanId(Long capitanId);
     Equipo findByEstado(String estado);
     Equipo findByEquipoId(Long equipoId);
@@ -14,4 +15,5 @@ public interface EquipoService {
     Equipo update(Long id,Equipo equipo);
     void deletebyId(Long id);
     Equipo findByNombreEquipo(String nombreEquipo);
+    List<Equipo>findByJuegoPrincipalId (Long juegoId);
 }
