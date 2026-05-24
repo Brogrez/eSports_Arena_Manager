@@ -24,40 +24,30 @@ public class InscripcionServiceImpl  implements InscripcionService {
     @Autowired
     InscripcionRepository inscripcionRepository;
 
+    @Autowired
     private EquipoClient equipoClient;
 
+    @Autowired
     private UsuarioClient usuarioClient;
 
+    @Autowired
     private TorneoClient  torneoClient;
 
+    @Autowired
     private SancionClient sancionClient;
 
     @Override
     public List<InscripcionDTO> findAll() {
-        return this.inscripcionRepository.findAll().stream().map(i->{
-            InscripcionDTO inscripcionDTO = new InscripcionDTO();
-            inscripcionDTO.setInscripcionId(i.getInscripcionId());
-            inscripcionDTO.setTipoParticipante(i.getTipoParticipante());
-            inscripcionDTO.setEstado(i.getEstado());
-            SancionDTO sancionDTO = null;
-            if(i.getFechaInscripcion().before(torneoClient.findById(i.getTorneoId()).getFechaInicio())){
-                inscripcionDTO.setFechaInscripcion(i.getFechaInscripcion());
-            }else {
-                throw new InscripcionException("el torneo ya empezó, no se pueden inscribir jugadores");
-            }
-            try{
-                sancionDTO = sancionClient.findbyid(i.getJugadorId());
-                if(sancionDTO == null){
-                    inscripcionDTO.setUsuarioId(i.getJugadorId());
-                }else{
-                    throw new InscripcionException("El jugador tiene una sancion vigente, no se puede inscribir");
-                }
-            }catch(InscripcionException e){
-                e.getMessage();
-            }
-            inscripcionDTO.setEquipoId(i.getEquipoId());
-            inscripcionDTO.setTorneoId(i.getTorneoId());
-            return inscripcionDTO;
+        return this.inscripcionRepository.findAll().stream().map(i -> {
+            InscripcionDTO dto = new InscripcionDTO();
+            dto.setInscripcionId(i.getInscripcionId());
+            dto.setTorneoId(i.getTorneoId());
+            dto.setEquipoId(i.getEquipoId());
+            dto.setUsuarioId(i.getJugadorId());
+            dto.setTipoParticipante(i.getTipoParticipante());
+            dto.setEstado(i.getEstado());
+            dto.setFechaInscripcion(i.getFechaInscripcion());
+            return dto;
         }).toList();
     }
 
