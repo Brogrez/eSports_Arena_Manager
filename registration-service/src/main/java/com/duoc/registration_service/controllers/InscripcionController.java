@@ -3,6 +3,7 @@ package com.duoc.registration_service.controllers;
 import com.duoc.registration_service.models.Inscripcion;
 import com.duoc.registration_service.models.dtos.InscripcionDTO;
 import com.duoc.registration_service.services.InscripcionService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ public class InscripcionController {
 
     //crear inscripcion
     @PostMapping
-    public ResponseEntity<Inscripcion> save(@RequestBody Inscripcion inscripcion) {
+    public ResponseEntity<Inscripcion> save(@RequestBody @Valid Inscripcion inscripcion) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(inscripcionService.save(inscripcion));
