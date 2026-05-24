@@ -1,4 +1,4 @@
-package eSports_Arena_Manager.prize_service;
+package com.duoc;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

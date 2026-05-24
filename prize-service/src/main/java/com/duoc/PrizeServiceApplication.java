@@ -1,4 +1,4 @@
-package eSports_Arena_Manager.prize_service;
+package com.duoc;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
