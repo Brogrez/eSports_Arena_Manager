@@ -105,8 +105,8 @@ public class InscripcionServiceImpl  implements InscripcionService {
     }
 
     @Override
-    public Inscripcion updateById(Inscripcion inscripcion) {
-        return this.inscripcionRepository.findById(inscripcion.getInscripcionId()).map(i -> {
+    public Inscripcion updateById(Long id,Inscripcion inscripcion) {
+        return this.inscripcionRepository.findById(id).map(i ->  {
             i.setJugadorId(inscripcion.getJugadorId());
             i.setEquipoId(inscripcion.getEquipoId());
             i.setInscripcionId(inscripcion.getInscripcionId());
@@ -118,6 +118,7 @@ public class InscripcionServiceImpl  implements InscripcionService {
         }).orElseThrow(
                 () -> new InscripcionException("Inscripcion no encontrada")
         );
+
     }
     @Override
     public void deleteById(Long id) {

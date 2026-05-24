@@ -21,7 +21,7 @@ public class InscripcionController {
     private InscripcionService inscripcionService;
 
 
-    //crear inscripcion
+
     @PostMapping
     public ResponseEntity<Inscripcion> save(@RequestBody @Valid Inscripcion inscripcion) {
         return ResponseEntity
@@ -54,6 +54,13 @@ public class InscripcionController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(List.of(inscripcionService.findByEquipoId(equipoId)));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Inscripcion> update(@PathVariable Long id, @RequestBody @Valid Inscripcion inscripcion) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(inscripcionService.updateById(id, inscripcion));
     }
 
     @DeleteMapping("/{id}")
