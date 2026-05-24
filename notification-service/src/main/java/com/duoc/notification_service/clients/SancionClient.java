@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @FeignClient(name = "sanction-service", url = "localhost:8009/api/v1/sanctions")
 public interface SancionClient {
 
-    @GetMapping
+    @GetMapping("/{id}")
     SancionDTO findbyid(@PathVariable Long id);
 
 }
