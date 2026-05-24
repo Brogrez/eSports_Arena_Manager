@@ -1,11 +1,12 @@
 package com.duoc.registration_service.services;
 
 import com.duoc.registration_service.models.Inscripcion;
+import com.duoc.registration_service.models.dtos.InscripcionDTO;
 
 import java.util.List;
 
 public interface InscripcionService {
-    List<Inscripcion> findAll();
+    List<InscripcionDTO> findAll();
     Inscripcion findByInscripcionId(Long inscripcionId);
     Inscripcion findByJugadorId(Long jugadorId);
     Inscripcion findByEquipoId(Long equipoId);

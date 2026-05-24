@@ -1,6 +1,7 @@
 package com.duoc.registration_service.controllers;
 
 import com.duoc.registration_service.models.Inscripcion;
+import com.duoc.registration_service.models.dtos.InscripcionDTO;
 import com.duoc.registration_service.services.InscripcionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,7 +29,7 @@ public class InscripcionController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Inscripcion>> findAll()  {
+    public ResponseEntity<List<InscripcionDTO>> findAll()  {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(inscripcionService.findAll());
