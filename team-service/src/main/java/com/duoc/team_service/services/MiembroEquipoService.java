@@ -10,7 +10,7 @@ public interface MiembroEquipoService {
     List<MiembroEquipo> findByUsuarioId(Long usuarioId);
     MiembroEquipo findByRolDentroEquipo(String rolDentroEquipo);
     MiembroEquipo findBymEquipoId(Long equipoId);
-    MiembroEquipo save(Long usuarioId, MiembroEquipo miembroEquipo);
+    MiembroEquipo save(MiembroEquipo miembroEquipo);
     void deleteByMiembroId(MiembroEquipo miembroEquipo);
     MiembroEquipo update(Long miembroEquipoId,MiembroEquipo miembroEquipo);
 
