@@ -1,6 +1,7 @@
 package com.duoc.team_service.controllers;
 
 import com.duoc.team_service.models.Equipo;
+import com.duoc.team_service.models.dtos.EquipoDTO;
 import com.duoc.team_service.repositories.EquipoRepository;
 import com.duoc.team_service.services.EquipoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class EquipoController {
     private EquipoService equipoService;
 
     @GetMapping
-    public ResponseEntity<List<Equipo>> findAll() {
+    public ResponseEntity<List<EquipoDTO>> findAll() {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(equipoService.findAll());
@@ -81,5 +82,10 @@ public class EquipoController {
                 .status(HttpStatus.NO_CONTENT)
                 .build();
     }
-
+    @GetMapping("/games/{juegoId}")
+    public ResponseEntity<List<Equipo>> findByJuegoPrincipalId(@PathVariable Long juegoId){
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(equipoService.findByJuegoPrincipalId(juegoId));
+    }
 }
