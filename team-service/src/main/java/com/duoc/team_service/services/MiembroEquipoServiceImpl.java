@@ -21,6 +21,7 @@ public class MiembroEquipoServiceImpl implements MiembroEquipoService {
     @Autowired
     private MiembroEquipoRepository miembroEquipoRepository;
 
+    @Autowired
     private UsuarioClient userClient;
 
 
