@@ -1,6 +1,7 @@
 package com.duoc.notification_service.controllers;
 
 import com.duoc.notification_service.models.Notificacion;
+import com.duoc.notification_service.models.dtos.NotificacionDTO;
 import com.duoc.notification_service.services.NotificacionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,7 +19,7 @@ public class NotificacionController {
     private NotificacionService notificacionService;
 
     @GetMapping
-    public ResponseEntity<List<Notificacion>> findAll() {
+    public ResponseEntity<List<NotificacionDTO>> findAll() {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(notificacionService.findAll());
