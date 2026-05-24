@@ -112,6 +112,7 @@ public class InscripcionServiceImpl  implements InscripcionService {
             throw new InscripcionException("El usuario con id " + inscripcion.getJugadorId() + " no existe");
         }
 
+        inscripcion.setEstado("ACTIVO");
         return this.inscripcionRepository.save(inscripcion);
     }
 
