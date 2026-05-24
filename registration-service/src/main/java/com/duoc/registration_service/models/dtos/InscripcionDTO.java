@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -14,11 +15,11 @@ import java.time.LocalDateTime;
 
 public class InscripcionDTO {
 
-    private Long id;
+    private Long inscripcionId;
     private Long torneoId;
     private Long equipoId;
     private Long usuarioId;
     private String tipoParticipante;
     private String estado;
-    private LocalDateTime fechaInscripcion;
+    private Date fechaInscripcion;
 }
