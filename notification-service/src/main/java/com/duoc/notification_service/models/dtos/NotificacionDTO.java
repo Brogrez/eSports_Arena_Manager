@@ -16,4 +16,9 @@ public class NotificacionDTO {
     private String mensaje;
     private String tipo;
     private boolean leido;
+    private Long partidaId;
+    private Long premioId;
+    private Long resultadoId;
+    private Long sancionId;
+
 }
