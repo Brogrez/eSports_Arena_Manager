@@ -1,4 +1,4 @@
-package com.duoc.prize_service.models; // Alineado a tu ruta física real actual
+package com.duoc.prize_service.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -21,25 +21,21 @@ public class Prize {
     @Column(name = "premio_id")
     private Long id;
 
-    @NotBlank(message = "El campo de nombre no puede ser vacio")
+    @NotBlank(message = "El nombre del premio no puede estar vacio")
     @Column(nullable = false)
-    private String name;
+    private String nombre;
 
-    @NotBlank(message = "El campo de descripcion no puede ser vacio")
+    @NotNull(message = "El monto o valor del premio es obligatorio")
     @Column(nullable = false)
-    private String descripcion;
+    private Double monto;
 
-    @NotNull(message = "El campo de valor no puede ser nulo")
-    @Column(nullable = false)
-    private Double valor;
-
+    // DESACOPLAMIENTO: ID de referencia al microservicio externo de torneos
     @NotNull(message = "El ID del torneo no puede ser nulo")
     @Column(name = "torneo_id", nullable = false)
     private Long torneoId;
 
-
     @Column(nullable = false)
-    private String estado;
+    private String estado; // Ejemplo: "ASIGNADO", "ENTREGADO"
 
     @Embedded
     private Audit audit = new Audit();

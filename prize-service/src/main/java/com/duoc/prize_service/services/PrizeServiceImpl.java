@@ -1,86 +1,67 @@
-package com.duoc.prize_service.services;
+package com.duoc.prize_service.services.impl;
 
-import com.duoc.exceptions.PrizeException;
-import com.duoc.models.Prize;
-import prize_service.repositories.PrizeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.duoc.prize_service.clients.TournamentClient;
+import com.duoc.prize_service.models.Prize;
+import com.duoc.prize_service.models.dtos.PrizeSaveDTO;
+import com.duoc.prize_service.models.dtos.TournamentDTO;
+import com.duoc.prize_service.repositories.PrizeRepository;
+import com.duoc.prize_service.services.PrizeService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
+@Slf4j
 public class PrizeServiceImpl implements PrizeService {
 
-    @Autowired
-    private PrizeRepository prizeRepository;
+    private final PrizeRepository prizeRepository;
+    private final TournamentClient tournamentClient; // Cliente Feign externo
 
-    @Transactional(readOnly = true)
     @Override
+    @Transactional(readOnly = true)
     public List<Prize> findAll() {
-        return this.prizeRepository.findAll();
+        return prizeRepository.findAll();
     }
 
-    @Transactional(readOnly = true)
     @Override
+    @Transactional(readOnly = true)
     public Prize findById(Long id) {
-        return this.prizeRepository.findById(id).orElseThrow(
-                () -> new PrizeException("premio no encontrado")
-        );
+        return prizeRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Premio no encontrado con el ID: " + id));
     }
 
-    @Transactional(readOnly = true)
     @Override
-    public Prize findByName(String name) {
-        return this.prizeRepository.findByName(name).orElseThrow(
-                () -> new PrizeException("name no encontrado")
-        );
-    }
-
     @Transactional(readOnly = true)
-    @Override
-    public List<Prize> findByEstado(String estado) {
-        return this.prizeRepository.findByEstado(estado);
-    }
-
-    @Transactional(readOnly = true)
-    @Override
     public List<Prize> findByTorneoId(Long torneoId) {
-        return this.prizeRepository.findByTorneoId(torneoId);
+        return prizeRepository.findByTorneoId(torneoId);
     }
 
+    @Override
     @Transactional
-    @Override
-    public Prize save(Prize prize) {
-        if (this.prizeRepository.existsByName(prize.getName())) {
-            throw new PrizeException("ya existe este premio");
-        }
-        if (prize.getValor() < 0) {
-            throw new PrizeException("el valor del premio debe ser mayor o igual a 0");
-        }
-        prize.setEstado("DISPONIBLE");
-        return this.prizeRepository.save(prize);
+
+    public Prize save(PrizeSaveDTO dto) {
+        log.info("Validando torneo ID: {} llamando a tournament-service via OpenFeign", dto.getTorneoId());
+
+        TournamentDTO torneoExterno = tournamentClient.findById(dto.getTorneoId());
+        log.info("Validación exitosa. Torneo encontrado: {}", torneoExterno.getNombre());
+
+        // Mapeo limpio estructurado
+        Prize prize = new Prize();
+        prize.setNombre(dto.getNombre());
+        prize.setMonto(dto.getMonto());
+        prize.setTorneoId(dto.getTorneoId()); // ID plano desacoplado
+        prize.setEstado(dto.getEstado());
+
+        return prizeRepository.save(prize);
     }
 
     @Override
-    public void deleteById(Long id) {
-        this.prizeRepository.deleteById(id);
-    }
-
-    @Override
-    public Prize updateById(Long id, Prize prize) {
-        return this.prizeRepository.findById(id).map(e -> {
-            if (prize.getValor() < 0) {
-                throw new PrizeException("el valor del premio debe ser mayor o igual a 0");
-            }
-            e.setName(prize.getName());
-            e.setDescripcion(prize.getDescripcion());
-            e.setValor(prize.getValor());
-            e.setTorneoId(prize.getTorneoId());
-            e.setEstado(prize.getEstado());
-            return this.prizeRepository.save(e);
-        }).orElseThrow(
-                () -> new PrizeException("premio no encontrado")
-        );
+    @Transactional
+    public void delete(Long id) {
+        Prize prize = findById(id);
+        prizeRepository.delete(prize);
     }
 }
