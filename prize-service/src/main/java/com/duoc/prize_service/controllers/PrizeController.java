@@ -1,7 +1,7 @@
-package com.duoc.controllers; // Alineado a tu ruta física real actual
+package com.duoc.prize_service.controllers; // Alineado a tu ruta física real actual
 
-import com.duoc.models.Prize;
-import com.duoc.services.PrizeService;
+import prize_service.models.Prize;
+import prize_service.services.PrizeService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

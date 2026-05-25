@@ -1,4 +1,4 @@
-package com.duoc.repositories; // Alineado a tu ruta física real actual
+package com.duoc.prize_service.repositories; // Alineado a tu ruta física real actual
 
 import com.duoc.models.Prize;
 import org.springframework.data.jpa.repository.JpaRepository;

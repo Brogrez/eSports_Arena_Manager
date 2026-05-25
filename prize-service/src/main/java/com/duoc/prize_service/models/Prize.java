@@ -1,4 +1,4 @@
-package com.duoc.models; // Alineado a tu ruta física real actual
+package com.duoc.prize_service.models; // Alineado a tu ruta física real actual
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;

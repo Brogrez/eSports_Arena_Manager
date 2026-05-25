@@ -1,4 +1,4 @@
-package com.duoc.services;
+package com.duoc.prize_service.services;
 
 import com.duoc.models.Prize;
 import java.util.List;

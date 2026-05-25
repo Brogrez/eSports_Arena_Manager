@@ -1,8 +1,8 @@
-package com.duoc.services;
+package com.duoc.prize_service.services;
 
 import com.duoc.exceptions.PrizeException;
 import com.duoc.models.Prize;
-import com.duoc.repositories.PrizeRepository;
+import prize_service.repositories.PrizeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

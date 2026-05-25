@@ -1,4 +1,4 @@
-package com.duoc.models; // Tu ruta física actual
+package com.duoc.prize_service.models; // Tu ruta física actual
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
