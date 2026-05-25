@@ -5,7 +5,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-// Conecta directo al microservicio de torneos en el puerto estándar (8081)
+// Conecta directo al microservicio de torneos en el puerto estándar
 @FeignClient(name = "tournament-service", url = "http://localhost:8081/api/v1/tournaments")
 public interface TournamentClient {
 

@@ -5,8 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
-@EnableFeignClients // <--- ACTIVAR CLIENTES EN PAQUETE COM.DUOC
+@EnableFeignClients
 public class PrizeServiceApplication {
+
 	public static void main(String[] args) {
 		SpringApplication.run(PrizeServiceApplication.class, args);
 	}

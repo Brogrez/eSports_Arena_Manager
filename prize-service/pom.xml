@@ -15,7 +15,7 @@
 	</parent>
 
 	<groupId>eSports_Arena_Manager</groupId>
-	<artifactId>sanction-service</artifactId>
+	<artifactId>prize-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
 	<name>sanction-service</name>
