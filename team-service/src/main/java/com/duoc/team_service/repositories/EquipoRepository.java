@@ -17,7 +17,7 @@ public interface EquipoRepository extends JpaRepository<Equipo,Long> {
 
     Optional<Equipo> findByEquipoId(Long equipoId);
 
-    Optional<Equipo> findByEquipoNombre(String equipoNombre);
+    Optional<Equipo> findByNombreEquipo(String nombreEquipo);
 
 
 }
