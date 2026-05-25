@@ -1,4 +1,3 @@
-
 package eSports_Arena_Manager.result_service.models.dtos;
 
 import java.time.LocalDateTime;
@@ -12,7 +11,6 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class ResultDTO {
-
     private Long id;
     private Long partidaId;
     private String puntaje;

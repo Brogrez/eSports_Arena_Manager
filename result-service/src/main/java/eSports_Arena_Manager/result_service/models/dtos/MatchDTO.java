@@ -1,4 +1,4 @@
-package com.duoc.models.dtos;
+package eSports_Arena_Manager.result_service.models.dtos;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
