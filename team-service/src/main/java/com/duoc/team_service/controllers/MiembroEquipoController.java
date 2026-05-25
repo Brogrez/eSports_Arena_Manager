@@ -1,14 +1,13 @@
 package com.duoc.team_service.controllers;
 
 import com.duoc.team_service.models.MiembroEquipo;
+import com.duoc.team_service.models.dtos.MiembroEquipoDTO;
 import com.duoc.team_service.services.MiembroEquipoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,7 +20,7 @@ public class MiembroEquipoController {
     private MiembroEquipoService miembroEquipoService;
 
     @GetMapping
-    public ResponseEntity<List<MiembroEquipo>> findAll() {
+    public ResponseEntity<List<MiembroEquipoDTO>> findAll() {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(miembroEquipoService.findAll());
@@ -31,7 +30,26 @@ public class MiembroEquipoController {
     public ResponseEntity<MiembroEquipo> getById(@PathVariable Long id) {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(miembroEquipoService.findByMiembroId(id));
+                .body(miembroEquipoService.findBymEquipoId(id));
+    }
+
+    @PostMapping
+    public ResponseEntity<MiembroEquipo>save(@Valid @RequestBody MiembroEquipo miembroEquipo) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(miembroEquipoService.save(miembroEquipo));
+    }
+
+
+    @PutMapping("/{id}")
+    public ResponseEntity<MiembroEquipo> update(@PathVariable Long id, @Valid @ RequestBody MiembroEquipo miembroEquipo) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(miembroEquipoService.update(id, miembroEquipo));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable Long id) {
+        miembroEquipoService.deleteByMiembroId(miembroEquipoService.findBymEquipoId(id));
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/equipo/{mEquipoId}")
@@ -42,7 +60,7 @@ public class MiembroEquipoController {
     }
 
     @GetMapping("/usuario/{usuarioId}")
-    public ResponseEntity<MiembroEquipo> findByUsuarioId(@PathVariable Long usuarioId) {
+    public ResponseEntity<List<MiembroEquipo>>findByUsuarioId(@PathVariable Long usuarioId) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(miembroEquipoService.findByUsuarioId(usuarioId));

@@ -1,0 +1,24 @@
+package com.duoc.registration_service.models.dtos;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+import java.time.LocalDate;
+
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+
+public class UsuarioDTO {
+
+    private Long idUsuario;
+    private String rol;
+    private String estado;
+    private LocalDate fechaRegistro;
+    private String correo;
+    private String nickname;
+
+}

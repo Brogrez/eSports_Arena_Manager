@@ -16,18 +16,18 @@
 
     <packaging>pom</packaging>
     <modules>
-        <module>users-service</module>
-        <module>auth-service</module>
-        <module>game-service</module>
-        <module>team-service</module>
-        <module>tournament-service</module>
-        <module>registration-service</module>
-<!--        <module>match-service</module>-->
-<!--        <module>result-service</module>-->
-<!--        <module>ranking-service</module>-->
-        <module>sanction-service</module>
-        <module>prize-service</module>
-       <module>notification-service</module>
+        <module>users-service</module>          <!--00-->
+        <module>auth-service</module>           <!--01-->
+        <module>game-service</module>           <!--02-->
+        <module>team-service</module>           <!--03-->
+        <module>tournament-service</module>     <!--04-->
+        <module>registration-service</module>   <!--05-->
+        <module>match-service</module>          <!--06-->
+        <module>result-service</module>         <!--07-->
+        <module>ranking-service</module>        <!--08-->
+        <module>sanction-service</module>       <!--09-->
+        <module>prize-service</module>          <!--10-->
+        <module>notification-service</module>   <!--11-->
     </modules>
 
 </project>

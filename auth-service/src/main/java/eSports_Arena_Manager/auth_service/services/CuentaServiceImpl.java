@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -21,7 +22,7 @@ public class CuentaServiceImpl implements CuentaService {
     @Autowired
     private CuentaRepository cuentaRepository;
 
-
+    @Autowired
     private UsuarioClient usuarioClient;
 
     @Transactional(readOnly = true)
@@ -36,7 +37,7 @@ public class CuentaServiceImpl implements CuentaService {
             cuentaDTO.setFechaCreacion(c.getFechaCreacion());
             UsuarioDTO usuarioDTO = null;
             try{
-                usuarioDTO = usuarioClient.findById(c.getUsuarioId());
+                usuarioDTO = usuarioClient.findById(c.getUserId());
             }catch(FeignException e){
                 throw new CuentaException(e.getMessage());
             }
@@ -69,10 +70,11 @@ public class CuentaServiceImpl implements CuentaService {
     @Override
     public Cuenta save(Cuenta cuenta) {
         try{
-            UsuarioDTO usuarioDTO = this.usuarioClient.findById(cuenta.getUsuarioId());
+            UsuarioDTO usuarioDTO = this.usuarioClient.findById(cuenta.getUserId());
         } catch (FeignException exception) {
-            throw new CuentaException("el usuario con id"+ cuenta.getUsuarioId()+" no existe");
+            throw new CuentaException("el usuario con id"+ cuenta.getUserId()+" no existe");
         }
+        cuenta.setFechaCreacion(LocalDateTime.now());
         return this.cuentaRepository.save(cuenta);
     }
 
@@ -85,9 +87,9 @@ public class CuentaServiceImpl implements CuentaService {
             c.setRol(cuenta.getRol());
             c.setFechaCreacion(cuenta.getFechaCreacion());
             try{
-                UsuarioDTO usuarioDTO = this.usuarioClient.findById(cuenta.getUsuarioId());
+                UsuarioDTO usuarioDTO = this.usuarioClient.findById(cuenta.getUserId());
             } catch (FeignException exception) {
-                throw new CuentaException("el usuario con id"+ cuenta.getUsuarioId()+" no existe");
+                throw new CuentaException("el usuario con id"+ cuenta.getUserId()+" no existe");
             }
 
             return this.cuentaRepository.save(c);
@@ -102,7 +104,7 @@ public class CuentaServiceImpl implements CuentaService {
     }
 
     @Override
-    public List<Cuenta> findByUsuarioId(Long idUsuario) {
-        return this.cuentaRepository.findByUsuarioId(idUsuario);
+    public List<Cuenta> findByUserId(Long userId) {
+        return this.cuentaRepository.findByUserId(userId);
     }
 }

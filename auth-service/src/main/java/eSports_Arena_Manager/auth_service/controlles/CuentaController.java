@@ -4,14 +4,12 @@ package eSports_Arena_Manager.auth_service.controlles;
 import eSports_Arena_Manager.auth_service.models.Cuenta;
 import eSports_Arena_Manager.auth_service.models.dtos.CuentaDTO;
 import eSports_Arena_Manager.auth_service.services.CuentaService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -52,7 +50,26 @@ public class CuentaController {
     }
 
     @GetMapping("/usuario/{usuarioId}")
-    public ResponseEntity<List<Cuenta>> findByUsuarioId(@PathVariable Long usuarioId){
-        return ResponseEntity.ok(cuentaService.findByUsuarioId(usuarioId));
+    public ResponseEntity<List<Cuenta>> findByUserId(@PathVariable Long usuarioId){
+        return ResponseEntity.ok(cuentaService.findByUserId(usuarioId));
+    }
+
+    @PostMapping
+    public ResponseEntity<Cuenta> save(@Valid @RequestBody Cuenta cuenta) {
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(cuentaService.save(cuenta));
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<Cuenta>  update(@PathVariable Long id, @Valid @RequestBody Cuenta cuenta) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(cuentaService.updateById(id, cuenta));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        cuentaService.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 }

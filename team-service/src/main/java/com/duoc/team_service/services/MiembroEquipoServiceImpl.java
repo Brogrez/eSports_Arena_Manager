@@ -1,9 +1,13 @@
 package com.duoc.team_service.services;
 
+import com.duoc.team_service.clients.UsuarioClient;
 import com.duoc.team_service.exceptions.MiembroEquipoException;
 import com.duoc.team_service.models.MiembroEquipo;
+import com.duoc.team_service.models.dtos.MiembroEquipoDTO;
+import com.duoc.team_service.models.dtos.UsuarioDTO;
 import com.duoc.team_service.repositories.MiembroEquipoRepository;
 
+import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,26 +20,40 @@ public class MiembroEquipoServiceImpl implements MiembroEquipoService {
     @Autowired
     private MiembroEquipoRepository miembroEquipoRepository;
 
-    @Transactional(readOnly = true)
-    @Override
-    public List<MiembroEquipo> findAll() {
-        return this.miembroEquipoRepository.findAll();
-    }
+    @Autowired
+    private UsuarioClient userClient;
+
+
 
     @Transactional(readOnly = true)
-    @Override
     public MiembroEquipo findByMiembroId(Long miembroId) {
         return this.miembroEquipoRepository.findByMiembroId(miembroId).orElseThrow(
                 () -> new MiembroEquipoException("Miembro del equipo no encontrado")
         );
     }
 
+    @Override
+    public List<MiembroEquipoDTO> findAll() {
+        return this.miembroEquipoRepository.findAll().stream().map(m -> {
+            MiembroEquipoDTO miembroEquipoDTO = new MiembroEquipoDTO();
+            miembroEquipoDTO.setMiembroId(m.getMiembroId());
+            miembroEquipoDTO.setRolEnEquipo(m.getRolDentroEquipo());
+            try{
+                UsuarioDTO usuarioDTO = userClient.findById(m.getUsuarioId());
+            }catch(FeignException e){
+                throw new MiembroEquipoException(e.getMessage());
+            }
+            UsuarioDTO usuarioDTO = new UsuarioDTO();
+            usuarioDTO.setIdUsuario(m.getUsuarioId());
+            miembroEquipoDTO.setUsuarioId(usuarioDTO.getIdUsuario());
+            return miembroEquipoDTO;
+        }).toList();
+    }
+
     @Transactional(readOnly = true)
     @Override
-    public MiembroEquipo findByUsuarioId(Long usuarioId) {
-        return this.miembroEquipoRepository.findByUsuarioId(usuarioId).orElseThrow(
-                () -> new MiembroEquipoException("Usuario no encontrado en el equipo")
-        );
+    public List<MiembroEquipo> findByUsuarioId(Long usuarioId) {
+        return this.miembroEquipoRepository.findByUsuarioId(usuarioId).stream().toList();
     }
 
     @Transactional(readOnly = true)
@@ -55,8 +73,8 @@ public class MiembroEquipoServiceImpl implements MiembroEquipoService {
 
     @Transactional
     @Override
-    public MiembroEquipo save(Long usuarioId,MiembroEquipo miembroEquipo) {
-        if(this.miembroEquipoRepository.findByUsuarioId(usuarioId).isPresent()){
+    public MiembroEquipo save(MiembroEquipo miembroEquipo) {
+        if(this.miembroEquipoRepository.findByUsuarioId(miembroEquipo.getUsuarioId()).isPresent()){
             throw new MiembroEquipoException("Usuario ya es miembro de un equipo");
         }
         return this.miembroEquipoRepository.save(miembroEquipo);

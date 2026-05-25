@@ -45,7 +45,6 @@ public class User {
     @Column(nullable = false)
     private String estado;
 
-    @NotNull(message = "El campo fecha de registro no puede ser nulo")
     @Column(name = "fecha-registro")
-    private LocalDateTime fechaRegistro;
+    private LocalDate fechaRegistro;
 }
