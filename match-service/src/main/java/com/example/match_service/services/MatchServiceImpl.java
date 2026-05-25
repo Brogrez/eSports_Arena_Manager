@@ -53,7 +53,7 @@ public class MatchServiceImpl implements MatchService {
         }
         try {
             RegistrationDto inscripcionA = registrationClient.findById(match.getParticipanteAId());
-            if (!inscripcionA.getEstado().equals("ACTIVA")) {
+            if (!inscripcionA.getEstado().equals("ACTIVO")) {
                 throw new MatchExceptions("El participante A no tiene una inscripción activa");
             }
         } catch (FeignException e) {
@@ -62,7 +62,7 @@ public class MatchServiceImpl implements MatchService {
 
         try {
             RegistrationDto inscripcionB = registrationClient.findById(match.getParticipanteBId());
-            if (!inscripcionB.getEstado().equals("ACTIVA")) {
+            if (!inscripcionB.getEstado().equals("ACTIVO")) {
                 throw new MatchExceptions("El participante B no tiene una inscripción activa");
             }
         } catch (FeignException e) {

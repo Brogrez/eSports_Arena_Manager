@@ -39,7 +39,6 @@ public class Inscripcion {
     @Column(nullable = false)
     private String tipoParticipante;
 
-    @NotBlank(message = "El campo de estado no puede estar en blanco")
     @Column(nullable = false)
     private String estado;
 

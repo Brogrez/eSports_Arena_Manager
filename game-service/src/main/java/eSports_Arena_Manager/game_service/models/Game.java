@@ -37,7 +37,6 @@ public class Game {
     @Positive(message = "Los jugadores por equipo deben ser mayor a 0")
     private Integer jugadoresPorEquipo;
 
-    @NotBlank(message = "El campo de estado no puede ser vacio")
     @Column(nullable = false)
     private String estado;
 
