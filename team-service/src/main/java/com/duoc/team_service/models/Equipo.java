@@ -32,7 +32,6 @@ public class Equipo {
     @Column(name = "game_id", nullable = false)
     private Long juegoPrincipalId;
 
-    @NotBlank
     @Column(nullable = false)
     private String estado;
 

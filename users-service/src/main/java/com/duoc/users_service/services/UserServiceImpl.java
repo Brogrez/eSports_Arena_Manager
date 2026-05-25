@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -53,6 +54,8 @@ public class UserServiceImpl implements UserService {
        if(this.userRepository.findByNickname(user.getNickname()).isPresent()){
            throw new UserException("User ya existe");
        }
+       user.setFechaRegistro(LocalDate.now());
+       user.setEstado("ACTIVO");
        return this.userRepository.save(user);
     }
 

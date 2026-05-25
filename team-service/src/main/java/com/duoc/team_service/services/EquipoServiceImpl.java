@@ -89,6 +89,7 @@ public class EquipoServiceImpl implements EquipoService {
         if(this.equipoRepository.findByNombreEquipo(equipo.getNombreEquipo()).isPresent()){
             throw new EquipoException("Equipo existente");
         }
+        equipo.setEstado("ACTIVO");
         return this.equipoRepository.save(equipo);
     }
 

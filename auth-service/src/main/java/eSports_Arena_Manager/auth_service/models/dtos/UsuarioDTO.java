@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class UsuarioDTO {
 
-    private Long idUsuario;
+    private Long userId;
     private String rol;
     private String estado;
     private LocalDate fechaRegistro;

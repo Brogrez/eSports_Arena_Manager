@@ -43,7 +43,7 @@ public class Inscripcion {
     @Column(nullable = false)
     private String estado;
 
-    @NotBlank(message = "El campo de fecha de inscripcion no puede estar en blanco")
+    @NotNull(message = "El campo de fecha de inscripcion no puede estar en blanco")
     @Column(nullable = false)
     private Date fechaInscripcion;
 

@@ -1,7 +1,9 @@
 package com.duoc.registration_service.controllers;
 
 import com.duoc.registration_service.models.Inscripcion;
+import com.duoc.registration_service.models.dtos.InscripcionDTO;
 import com.duoc.registration_service.services.InscripcionService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,19 +21,26 @@ public class InscripcionController {
     private InscripcionService inscripcionService;
 
 
-    //crear inscripcion
+
     @PostMapping
-    public ResponseEntity<Inscripcion> save(@RequestBody Inscripcion inscripcion) {
+    public ResponseEntity<Inscripcion> save(@RequestBody @Valid Inscripcion inscripcion) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(inscripcionService.save(inscripcion));
     }
 
     @GetMapping
-    public ResponseEntity<List<Inscripcion>> findAll()  {
+    public ResponseEntity<List<InscripcionDTO>> findAll()  {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(inscripcionService.findAll());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Inscripcion> findById(@PathVariable Long id) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(inscripcionService.findByInscripcionId(id));
     }
 
     @GetMapping("/torneo/{torneoId}")
@@ -54,12 +63,24 @@ public class InscripcionController {
                 .body(List.of(inscripcionService.findByEquipoId(equipoId)));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Inscripcion> update(@PathVariable Long id, @RequestBody @Valid Inscripcion inscripcion) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(inscripcionService.updateById(id, inscripcion));
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable Long id) {
         inscripcionService.deleteById(id);
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
                 .build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Inscripcion> updateById(@PathVariable Long id, @Valid @RequestBody Inscripcion inscripcion) {
+        return ResponseEntity.status(HttpStatus.OK).body(inscripcionService.updateById(inscripcion, id));
     }
 
 }
