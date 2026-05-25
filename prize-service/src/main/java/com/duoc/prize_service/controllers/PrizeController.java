@@ -50,7 +50,7 @@ public class PrizeController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePrize(@PathVariable Long id) {
-        prizeService.delete(id);
+        prizeService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 }
