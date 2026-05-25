@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.util.List;
 
 @RestController
@@ -31,15 +32,14 @@ public class PrizeController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(this.prizeService.findById(id));
-    }
 
+    }
     @GetMapping("/name/{name}")
-    public ResponseEntity<List<Prize>> findByName(@PathVariable String name) {
+    public ResponseEntity<Prize> findByName(@PathVariable String name) { // <-- Corregido a <Prize>
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(this.prizeService.findByName(name));
     }
-
     @GetMapping("/estado/{estado}")
     public ResponseEntity<List<Prize>> findByEstado(@PathVariable String estado) {
         return ResponseEntity

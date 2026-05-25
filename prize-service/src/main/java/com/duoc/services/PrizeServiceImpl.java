@@ -31,20 +31,16 @@ public class PrizeServiceImpl implements PrizeService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<Prize> findByName(String name) {
-        return this.prizeRepository.findByName(name)
-                .map(List::of)
-                .orElseThrow(() -> new PrizeException("name no encontrado"));
+    public Prize findByName(String name) {
+        return this.prizeRepository.findByName(name).orElseThrow(
+                () -> new PrizeException("name no encontrado")
+        );
     }
 
     @Transactional(readOnly = true)
     @Override
     public List<Prize> findByEstado(String estado) {
-        List<Prize> premios = this.prizeRepository.findByEstado(estado);
-        if (premios.isEmpty()) {
-            throw new PrizeException("estados no encontrado");
-        }
-        return premios;
+        return this.prizeRepository.findByEstado(estado);
     }
 
     @Transactional(readOnly = true)

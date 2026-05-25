@@ -37,7 +37,7 @@ public class Prize {
     @Column(name = "torneo_id", nullable = false)
     private Long torneoId;
 
-    @NotBlank(message = "Tiene que haber un estado asignado")
+
     @Column(nullable = false)
     private String estado;
 
