@@ -15,11 +15,11 @@
 	</parent>
 
 	<groupId>eSports_Arena_Manager</groupId>
-	<artifactId>prize-service</artifactId>
+	<artifactId>sanction-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
-	<name>prize-service</name>
-	<description>Microservicio de premios</description>
+	<name>sanction-service</name>
+	<description>Microservicio de sanciones</description>
 
 	<properties>
 		<java.version>21</java.version>
@@ -46,6 +46,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+
 		<!-- Spring Data JPA -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -134,4 +135,5 @@
 
 		</plugins>
 	</build>
+
 </project>
