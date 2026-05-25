@@ -5,9 +5,10 @@ import com.duoc.prize_service.models.dtos.PrizeSaveDTO;
 import java.util.List;
 
 public interface PrizeService {
-    List<Prize> findAll();
+    List<PrizeSaveDTO> findAll();
     Prize findById(Long id);
     List<Prize> findByTorneoId(Long torneoId);
-    Prize save(PrizeSaveDTO prizeSaveDTO);
-    void delete(Long id);
+    Prize save(Prize prize);
+    void deleteById(Long id);
+    Prize update(Long id, PrizeSaveDTO prizeSaveDTO);
 }

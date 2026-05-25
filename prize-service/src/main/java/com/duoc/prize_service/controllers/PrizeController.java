@@ -5,6 +5,7 @@ import com.duoc.prize_service.models.dtos.PrizeSaveDTO;
 import com.duoc.prize_service.services.PrizeService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,28 +16,37 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PrizeController {
 
-    private final PrizeService prizeService;
+    @Autowired
+    private PrizeService prizeService;
 
     @GetMapping
-    public ResponseEntity<List<Prize>> getAllPrizes() {
-        return ResponseEntity.ok(prizeService.findAll());
+    public ResponseEntity<List<PrizeSaveDTO>> findAll() {
+        return ResponseEntity.
+                status(HttpStatus.OK).body(prizeService.findAll());
     }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<Prize> getPrizeById(@PathVariable Long id) {
-        return ResponseEntity.ok(prizeService.findById(id));
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(prizeService.findById(id));
     }
 
     @GetMapping("/tournament/{torneoId}")
     public ResponseEntity<List<Prize>> getPrizesByTorneoId(@PathVariable Long torneoId) {
-        return ResponseEntity.ok(prizeService.findByTorneoId(torneoId));
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(prizeService.findByTorneoId(torneoId));
     }
 
     @PostMapping
-    public ResponseEntity<Prize> createPrize(@Valid @RequestBody PrizeSaveDTO prizeSaveDTO) {
-        Prize nuevoPremio = prizeService.save(prizeSaveDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(nuevoPremio);
+    public ResponseEntity<Prize> save(@Valid @RequestBody Prize prize) {
+        return  ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(prizeService.save(prize));
     }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePrize(@PathVariable Long id) {
