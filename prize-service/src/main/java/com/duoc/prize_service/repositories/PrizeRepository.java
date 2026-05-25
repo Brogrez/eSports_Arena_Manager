@@ -1,20 +1,13 @@
-package com.duoc.prize_service.repositories; // Alineado a tu ruta física real actual
+package com.duoc.prize_service.repositories;
 
-import com.duoc.models.Prize;
+import com.duoc.prize_service.models.Prize;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface PrizeRepository extends JpaRepository<Prize, Long> {
 
-    Optional<Prize> findByName(String name);
-
-    List<Prize> findByEstado(String estado);
-
+    // Busca premios por el ID plano del torneo externo
     List<Prize> findByTorneoId(Long torneoId);
-
-    boolean existsByName(String name);
 }
