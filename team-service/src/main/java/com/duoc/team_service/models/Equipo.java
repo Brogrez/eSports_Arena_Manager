@@ -30,7 +30,7 @@ public class Equipo {
 
     @NotNull(message = "debe tener el id del juego participante")
     @Column(name = "game_id", nullable = false)
-    private Long JuegoPrincipalId;
+    private Long juegoPrincipalId;
 
     @Column(nullable = false)
     private String estado;
