@@ -1,15 +1,13 @@
 package com.duoc.prize_service.services;
 
-import com.duoc.models.Prize;
+import com.duoc.prize_service.models.Prize;
+import com.duoc.prize_service.models.dtos.PrizeSaveDTO;
 import java.util.List;
 
 public interface PrizeService {
     List<Prize> findAll();
     Prize findById(Long id);
-    Prize findByName(String name); //
-    List<Prize> findByEstado(String estado);
     List<Prize> findByTorneoId(Long torneoId);
-    Prize save(Prize prize);
-    void deleteById(Long id);
-    Prize updateById(Long id, Prize prize);
+    Prize save(PrizeSaveDTO prizeSaveDTO);
+    void delete(Long id);
 }
