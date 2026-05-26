@@ -60,10 +60,11 @@ public class ResultServiceImpl implements ResultService {
         }
 
         if(resultRepository.existsByPartidaId(result.getPartidaId())){
-            throw new ResultException("ya existe un resultaod para esa partida");
+            throw new ResultException("ya existe un resultado para esa partida");
         }
 
         calcularGanador(result);
+        result.setEstado("PENDIENTE");
         return this.resultRepository.save(result);
     }
 
