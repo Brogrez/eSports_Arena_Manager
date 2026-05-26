@@ -1,4 +1,4 @@
-package com.duoc.exceptions; // Alineado a tu ruta física real actual
+package com.duoc.prize_service.exceptions; // Alineado a tu ruta física real actual
 
 public class PrizeException extends RuntimeException {
 
