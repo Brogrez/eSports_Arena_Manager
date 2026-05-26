@@ -8,6 +8,9 @@ import java.util.List;
 @Repository
 public interface PrizeRepository extends JpaRepository<Prize, Long> {
 
-
     List<Prize> findByTorneoId(Long torneoId);
+    List<Prize> findByPosicion(Integer posicion);
+    boolean existsByTorneoIdAndPosicion(Long torneoId, Integer posicion);
+
+
 }

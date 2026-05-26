@@ -28,18 +28,22 @@ public class Prize {
     @Column(name = "premio_id")
     private Long premioId;
 
-    @NotBlank(message = "El nombre del premio no puede estar vacio")
-    @Column(nullable = false)
-    private String nombre;
-
-    @NotNull(message = "El monto o valor del premio es obligatorio")
-    @Column(nullable = false)
-    private Double monto;
-
-
     @NotNull(message = "El ID del torneo no puede ser nulo")
     @Column(name = "torneo_id", nullable = false)
     private Long torneoId;
+
+    @NotNull(message = "La posicion no puede ser nula")
+    @Positive(message = "La posicion debe ser mayor a 0")
+    @Column(nullable = false)
+    private Integer posicion;
+
+    @NotBlank(message = "La descripcion no puede estar vacía")
+    @Column(nullable = false)
+    private String descripcion;
+
+    @NotNull(message = "El valor no puede ser nulo")
+    @Column(nullable = false)
+    private Double valor;
 
     @Column(nullable = false)
     private String estado;
