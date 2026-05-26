@@ -6,7 +6,7 @@ import java.util.List;
 public interface ResultService {
     List<Result> findAll();
     Result findById(Long id);
-    Result findByMatchId(Long matchId);
+    Result findByPartidaId(Long partidaId);
     List<Result> findByEstado(String estado);
     Result save(Result result);
     void deleteById(Long id);

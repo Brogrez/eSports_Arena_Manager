@@ -20,33 +20,33 @@ public class Result {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "resultado_id")
-    private Long id;
+    private Long resultadoId;
 
-    @NotNull(message = "El ID del partido no puede ser nulo")
-    @Column(name = "match_id") // Agregado para estandarizar la BD
-    private Long matchId;
+    @NotNull(message = "El ID de la partida no puede ser nulo")
+    @Column(name = "partida_id", nullable = false)
+    private Long partidaId;
 
     @NotNull(message = "El ID del equipo A no puede ser nulo")
-    @Column(name = "team_a_id") // Agregado para estandarizar la BD
+    @Column(name = "team_a_id", nullable = false)
     private Long teamAId;
 
     @NotNull(message = "El ID del equipo B no puede ser nulo")
-    @Column(name = "team_b_id") // Agregado para estandarizar la BD
+    @Column(name = "team_b_id", nullable = false)
     private Long teamBId;
 
-    @Min(value = 0, message = "El puntaje del equipo A no puede ser negativo")
-    @Column(name = "score_a") // Agregado para estandarizar la BD
+    @Min(value = 0, message = "El puntaje A no puede ser negativo")
+    @Column(name = "score_a")
     private Integer scoreA;
 
-    @Min(value = 0, message = "El puntaje del equipo B no puede ser negativo")
-    @Column(name = "score_b") // Agregado para estandarizar la BD
+    @Min(value = 0, message = "El puntaje B no puede ser negativo")
+    @Column(name = "score_b")
     private Integer scoreB;
 
-    @Column(name = "winner_id") // Agregado para estandarizar la BD
+    @Column(name = "winner_id")
     private Long winnerId;
 
-    @NotBlank(message = "El estado del resultado no puede estar vacío")
-    private String estado; // Como es una sola palabra, no es obligatorio el @Column
+    @Column(nullable = false)
+    private String estado;
 
     @Embedded
     private Audit audit = new Audit();
