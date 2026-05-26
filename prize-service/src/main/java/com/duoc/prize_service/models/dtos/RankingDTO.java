@@ -9,8 +9,10 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @ToString
-public class TournamentDTO {
+public class RankingDTO {
+    private Long rankingId;
     private Long torneoId;
-    private String nombre;
-    private String estado;
+    private Long participanteId;
+    private Integer posicion;
+    private Integer puntos;
 }
