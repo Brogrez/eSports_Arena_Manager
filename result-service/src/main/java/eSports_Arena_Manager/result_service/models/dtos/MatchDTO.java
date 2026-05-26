@@ -13,7 +13,8 @@ public class MatchDTO {
 
     private Long partidaId;
     private Long torneoId;
-    private String equipoA;
-    private String equipoB;
-    private String estadoPartida;
+    private Long equipoA;
+    private Long equipoB;
+    private String round;
+    private String estado;
 }

@@ -77,10 +77,4 @@ public class InscripcionController {
                 .status(HttpStatus.NO_CONTENT)
                 .build();
     }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Inscripcion> updateById(@PathVariable Long id, @Valid @RequestBody Inscripcion inscripcion) {
-        return ResponseEntity.status(HttpStatus.OK).body(inscripcionService.updateById(inscripcion, id));
-    }
-
 }

@@ -3,6 +3,7 @@ package eSports_Arena_Manager.result_service.services;
 import eSports_Arena_Manager.result_service.clients.MatchClient;
 import eSports_Arena_Manager.result_service.exceptions.ResultException;
 import eSports_Arena_Manager.result_service.models.Result;
+import eSports_Arena_Manager.result_service.models.dtos.MatchDTO;
 import eSports_Arena_Manager.result_service.repositories.ResultRepository;
 import eSports_Arena_Manager.result_service.services.ResultService;
 import feign.FeignException; // <-- Captura el error exacto de OpenFeign
@@ -31,43 +32,15 @@ public class ResultServiceImpl implements ResultService {
     @Override
     public Result findById(Long id) {
         return this.resultRepository.findById(id).orElseThrow(
-                () -> new ResultException("EL RESULTADO NO EXISTE")
+                () -> new ResultException("El resultado no existe")
         );
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     @Override
-    public Result save(Result result) {
-        // Validación cruzada con OpenFeign usando el bloque try-catch oficial de tu grupo
-        try {
-            matchClient.findById(result.getPartidaId());
-        } catch (FeignException e) {
-            throw new ResultException("LA PARTIDA NO EXISTE EN EL SISTEMA");
-        }
-
-        result.setEstado("PROCESADO");
-        return this.resultRepository.save(result);
-    }
-
-    @Transactional
-    @Override
-    public void deleteById(Long id) {
-        Result result = this.resultRepository.findById(id).orElseThrow(
-                () -> new ResultException("EL RESULTADO NO EXISTE")
-        );
-        this.resultRepository.delete(result);
-    }
-
-    @Transactional
-    @Override
-    public Result updateById(Long id, Result result) {
-        return this.resultRepository.findById(id).map(r -> {
-            r.setPuntaje(result.getPuntaje());
-            r.setGanador(result.getGanador());
-            r.setEstado(result.getEstado());
-            return this.resultRepository.save(r);
-        }).orElseThrow(
-                () -> new ResultException("EL RESULTADO NO EXISTE")
+    public Result findByPartidaId(Long partidaId) {
+        return this.resultRepository.findByPartidaId(partidaId).orElseThrow(
+                () -> new ResultException("No existe resultado para la partida")
         );
     }
 
@@ -76,4 +49,54 @@ public class ResultServiceImpl implements ResultService {
     public List<Result> findByEstado(String estado) {
         return this.resultRepository.findByEstado(estado);
     }
+
+    @Transactional
+    @Override
+    public Result save(Result result) {
+        try{
+            matchClient.findById(result.getPartidaId());
+        }catch(FeignException e){
+            throw new ResultException("la partida no existe");
+        }
+
+        if(resultRepository.existsByPartidaId(result.getPartidaId())){
+            throw new ResultException("ya existe un resultaod para esa partida");
+        }
+
+        calcularGanador(result);
+        return this.resultRepository.save(result);
+    }
+
+    @Transactional
+    @Override
+    public void deleteById(Long id) {
+        this.resultRepository.deleteById(id);
+    }
+
+    @Override
+    public Result updateById(Long id, Result result) {
+        return this.resultRepository.findById(id).map(r -> {
+            if(r.getEstado().equals("VALIDADO")){
+                throw new ResultException("un resultado valido no puede modificarse");
+            }
+            r.setScoreA(result.getScoreA());
+            r.setScoreB(result.getScoreB());
+            r.setEstado(result.getEstado());
+            calcularGanador(r);
+            return this.resultRepository.save(r);
+        }).orElseThrow(
+                () -> new ResultException("el resultado no existe")
+        );
+    }
+
+    private void calcularGanador(Result result) {
+        if (result.getScoreA() > result.getScoreB()) {
+            result.setWinnerId(result.getTeamAId());
+        } else if (result.getScoreB() > result.getScoreA()) {
+            result.setWinnerId(result.getTeamBId());
+        } else {
+            result.setWinnerId(null);
+        }
+    }
+
 }
