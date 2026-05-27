@@ -389,15 +389,6 @@ msvc-nombre/
     ├── services/         ← Interfaz + ServiceImpl con lógica de negocio
     └── Application.java
 ```
-
----
-
-## 📬 Colección Postman
-
-La colección con todas las pruebas REST está disponible en la raíz del repositorio como `eSports_Arena_Manager.postman_collection.json`.
-
-Para importarla: abrir Postman → **Import** → seleccionar el archivo.
-
 ---
 
 ## 📌 Notas importantes
@@ -405,4 +396,3 @@ Para importarla: abrir Postman → **Import** → seleccionar el archivo.
 - Todos los microservicios usan **H2 en memoria** (`jdbc:h2:mem`), por lo que los datos se pierden al reiniciar el servicio.
 - Cada microservicio tiene su **propio esquema de base de datos independiente**.
 - La comunicación entre servicios se realiza mediante **OpenFeign** con manejo de `FeignException` para errores de conexión y `FeignException.NotFound` para recursos inexistentes.
-- Cada microservicio tiene un **GlobalExceptionHandler** que devuelve códigos HTTP correctos (404 cuando el recurso no existe) en vez del 500 por defecto.
