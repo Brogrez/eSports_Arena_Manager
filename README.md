@@ -10,9 +10,9 @@ Desarrollado como proyecto semestral para la asignatura **Desarrollo FullStack I
 
 | Nombre | Microservicios desarrollados |
 |--------|------------------------------|
-| [Nombre 1] | user-service, team-service, registration-service, ranking-service |
-| [Nombre 2] | game-service, tournament-service, match-service, prize-service |
-| [Nombre 3] | auth-service, sanction-service, result-service, notification-service |
+| Nicolas Molina | user-service, tournament-service, match-service, ranking-service |
+| Jose Hernandez | auth-service, team-service, registration-service, notification-service |
+| Felipe Sanchez | game-service, sanction-service, result-service, prize-service |
 
 ---
 
