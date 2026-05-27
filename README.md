@@ -236,9 +236,9 @@ Para probar el flujo completo del sistema, seguir este orden:
 
 ### 1. Crear usuario
 ```json
-POST http://localhost:8000/api/v1/usuarios
+POST http://localhost:8000/api/v1/users
 {
-    "nombre": "Nicolas Perez",
+    "name": "Nicolas Molina",
     "nickname": "nico123",
     "email": "nico@gmail.com",
     "rol": "JUGADOR",
@@ -248,9 +248,9 @@ POST http://localhost:8000/api/v1/usuarios
 
 ### 2. Crear juego
 ```json
-POST http://localhost:8002/api/v1/juegos
+POST http://localhost:8002/api/v1/games
 {
-    "nombre": "Valorant",
+    "name": "Valorant",
     "genero": "FPS",
     "modalidad": "5v5",
     "jugadoresPorEquipo": 5
@@ -263,17 +263,16 @@ POST http://localhost:8003/api/v1/equipos
 {
     "nombreEquipo": "Team Alpha",
     "capitanId": 1,
-    "juegoPrincipalId": 1,
-    "estado": "ACTIVO"
+    "juegoPrincipalId": 1
 }
 ```
 
 ### 4. Crear torneo
 ```json
-POST http://localhost:8004/api/v1/torneos
+POST http://localhost:8004/api/v1/tournaments
 {
-    "nombre": "Copa Verano 2026",
-    "juegoId": 1,
+    "name": "Copa Verano 2026",
+    "gameId": 1,
     "fechaInicio": "2026-08-01",
     "fechaFin": "2026-08-15",
     "cupoMaximo": 16,
@@ -283,10 +282,10 @@ POST http://localhost:8004/api/v1/torneos
 
 ### 5. Cambiar torneo a EN_CURSO
 ```json
-PUT http://localhost:8004/api/v1/torneos/1
+PUT http://localhost:8004/api/v1/tournaments/1
 {
-    "nombre": "Copa Verano 2026",
-    "juegoId": 1,
+    "name": "Copa Verano 2026",
+    "gameId": 1,
     "fechaInicio": "2026-08-01",
     "fechaFin": "2026-08-15",
     "cupoMaximo": 16,
@@ -311,10 +310,10 @@ POST http://localhost:8005/api/v1/inscripciones
 ```json
 POST http://localhost:8006/api/v1/matchs
 {
-    "torneoId": 1,
+    "tourId": 1,
     "participanteAId": 1,
     "participanteBId": 2,
-    "ronda": "Cuartos de final",
+    "round": "Cuartos de final",
     "fechaHora": "2026-08-05T15:00:00"
 }
 ```
@@ -328,6 +327,28 @@ POST http://localhost:8007/api/v1/results
     "teamBId": 2,
     "scoreA": 13,
     "scoreB": 7
+}
+```
+
+### 9. Registrar rankings
+```json
+POST http://localhost:8008/api/v1/rankings
+{
+    "tourId": 1,
+    "participanteId": 1,
+}
+```
+
+### 10. Registrar prizes
+```json
+POST http://localhost:8010/api/v1/prizes
+{
+    "torneoId": 1,
+    "participanteId": 1,
+    "posicion": 1,
+    "descripcion": "torneo valorant 5v5",
+    "valor": 1000.0
+
 }
 ```
 
