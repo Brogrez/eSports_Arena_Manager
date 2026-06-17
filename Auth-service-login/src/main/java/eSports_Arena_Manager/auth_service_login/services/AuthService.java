@@ -67,7 +67,7 @@ public class AuthService {
         return construirRespuesta(cuenta);
     }
 
-    // LOGIN: valida usuario y clave. Si todo cuadra, entrega el token.
+    // LOGIN: valida usuario y clave. Si todo cuadra, entrega el token. y si no llora
     @Transactional(readOnly = true)
     public AuthResponse login(LoginRequest request) {
         // Buscar el usuario. Si no existe, se responde el MISMO error que clave mala,
