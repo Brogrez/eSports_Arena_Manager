@@ -28,6 +28,7 @@
         <module>sanction-service</module>       <!--09-->
         <module>prize-service</module>          <!--10-->
         <module>notification-service</module>   <!--11-->
+        <module>Auth-service-login</module>
     </modules>
 
 </project>
