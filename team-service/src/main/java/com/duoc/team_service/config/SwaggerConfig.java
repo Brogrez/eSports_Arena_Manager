@@ -17,9 +17,9 @@ public class SwaggerConfig {
     public OpenAPI customOpenApi(){
         return new OpenAPI()
                 .info(new Info()
-                        .title("API Atenciones")
+                        .title("API Equipos")
                         .version("1.0")
-                        .description("Documentación de la API de gestión de atenciones"))
+                        .description("Documentación de la API de gestión de Equipos"))
                 // Esquema "bearer-jwt": agrega el boton Authorize para pegar el token JWT.
                 .components(new Components().addSecuritySchemes(ESQUEMA,
                         new SecurityScheme()
