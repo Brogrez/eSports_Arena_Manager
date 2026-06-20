@@ -53,10 +53,10 @@ public class SecurityConfig {
                         // LEER atenciones (GET): cualquier rol autenticado, incluido PACIENTE.
                         // Va antes que la regla de escritura para que los GET no caigan en ella.
                         .requestMatchers(HttpMethod.GET, "/api/v1/atenciones/**")
-                        .hasAnyRole("ADMIN", "MEDICO", "PACIENTE")
+                        .hasAnyRole("ADMIN", "ORGANIZADOR", "JUGADOR")
                         // ESCRIBIR atenciones (POST/PUT/DELETE): solo ADMIN o MEDICO.
                         .requestMatchers("/api/v1/atenciones/**")
-                        .hasAnyRole("ADMIN", "MEDICO")
+                        .hasAnyRole("ADMIN", "ORGANIZADOR")
                         .anyRequest().authenticated())
                 // Sin sesion en el servidor: cada peticion se autentica con su propio token.
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
