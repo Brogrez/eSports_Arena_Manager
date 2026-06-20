@@ -28,7 +28,8 @@
         <module>sanction-service</module>       <!--09-->
         <module>prize-service</module>          <!--10-->
         <module>notification-service</module>
-        <module>eureka-service</module>   <!--11-->
+        <module>eureka-service</module>
+        <module>gateway-service</module>
     </modules>
 
 </project>
