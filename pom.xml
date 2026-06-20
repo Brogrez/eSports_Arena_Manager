@@ -27,7 +27,8 @@
         <module>ranking-service</module>        <!--08-->
         <module>sanction-service</module>       <!--09-->
         <module>prize-service</module>          <!--10-->
-        <module>notification-service</module>   <!--11-->
+        <module>notification-service</module>
+        <module>eureka-service</module>   <!--11-->
     </modules>
 
 </project>
