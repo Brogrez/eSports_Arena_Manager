@@ -19,7 +19,7 @@ public class Game {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "game_id")
-    private Long userId;
+    private Long gameId;
 
     @NotBlank(message = "El campo de nombre no puede ser vacio")
     @Column(nullable = false)
