@@ -52,10 +52,14 @@ public class SecurityConfig {
                         .requestMatchers("/docs/**", "/swagger-ui/**", "/v3/api-docs/**", "/h2-console/**").permitAll()
                         // LEER atenciones (GET): cualquier rol autenticado, incluido PACIENTE.
                         // Va antes que la regla de escritura para que los GET no caigan en ella.
-                        .requestMatchers(HttpMethod.GET, "/api/v1/atenciones/**")
+                        .requestMatchers(HttpMethod.GET, "/api/v1/equipos/**")
                         .hasAnyRole("ADMIN", "ORGANIZADOR", "JUGADOR")
                         // ESCRIBIR atenciones (POST/PUT/DELETE): solo ADMIN o MEDICO.
-                        .requestMatchers("/api/v1/atenciones/**")
+                        .requestMatchers("/api/v1/equipos/**")
+                        .hasAnyRole("ADMIN", "ORGANIZADOR")
+                        .requestMatchers(HttpMethod.GET, "/api/v1/miembros_equipo/**")
+                        .hasAnyRole("ADMIN", "ORGANIZADOR", "JUGADOR")
+                        .requestMatchers("/api/v1/miembros_equipo/**")
                         .hasAnyRole("ADMIN", "ORGANIZADOR")
                         .anyRequest().authenticated())
                 // Sin sesion en el servidor: cada peticion se autentica con su propio token.
