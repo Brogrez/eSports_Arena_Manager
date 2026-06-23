@@ -51,10 +51,10 @@ public class SecurityConfig {
 
                         .requestMatchers("/docs/**", "/swagger-ui/**", "/v3/api-docs/**", "/h2-console/**").permitAll()
 
-                        .requestMatchers(HttpMethod.GET, "/api/v1/atenciones/**")
+                        .requestMatchers(HttpMethod.GET, "/api/v1/notificaciones/**")
                         .hasAnyRole("ADMIN", "ORGANIZADOR", "JUGADOR")
 
-                        .requestMatchers("/api/v1/atenciones/**")
+                        .requestMatchers("/api/v1/notificaciones/**")
                         .hasAnyRole("ADMIN", "ORGANIZADOR")
                         .anyRequest().authenticated())
 
