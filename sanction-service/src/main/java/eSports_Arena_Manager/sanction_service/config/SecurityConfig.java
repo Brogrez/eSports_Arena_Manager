@@ -1,0 +1,63 @@
+package eSports_Arena_Manager.sanction_service.config;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
+import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
+import org.springframework.security.web.SecurityFilterChain;
+
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
+import java.nio.charset.StandardCharsets;
+
+public class SecurityConfig {
+    @Value("${jwt.secret}")
+    private String secret;
+
+    @Bean
+    public JwtDecoder jwtDecoder() {
+        SecretKey key = new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
+        return NimbusJwtDecoder.withSecretKey(key).macAlgorithm(MacAlgorithm.HS256).build();
+    }
+
+
+    @Bean
+    public JwtAuthenticationConverter jwtAuthenticationConverter() {
+        JwtGrantedAuthoritiesConverter authorities = new JwtGrantedAuthoritiesConverter();
+        authorities.setAuthoritiesClaimName("roles");
+        authorities.setAuthorityPrefix("");
+        JwtAuthenticationConverter converter = new JwtAuthenticationConverter();
+        converter.setJwtGrantedAuthoritiesConverter(authorities);
+        return converter;
+    }
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http, JwtAuthenticationConverter converter) throws Exception {
+        http
+                .csrf(csrf -> csrf.disable())
+
+                .authorizeHttpRequests(auth -> auth
+
+                        .requestMatchers("/docs/**", "/swagger-ui/**", "/v3/api-docs/**", "/h2-console/**").permitAll()
+
+                        .requestMatchers(HttpMethod.GET, "/api/v1/sanctions/**")
+                        .hasAnyRole("ADMIN", "ORGANIZADOR", "JUGADOR")
+                        // ESCRIBIR atenciones (POST/PUT/DELETE): solo ADMIN o MEDICO.
+                        .requestMatchers("/api/v1/sanctions/**")
+                        .hasAnyRole("ADMIN", "ORGANIZADOR")
+                        .anyRequest().authenticated())
+                // Sin sesion en el servidor: cada peticion se autentica con su propio token.
+                .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                // Activa la validacion del JWT con el decoder y el conversor de roles.
+                .oauth2ResourceServer(oauth -> oauth.jwt(jwt -> jwt.jwtAuthenticationConverter(converter)))
+                // Permite ver la consola h2 (usa frames) en el navegador.
+                .headers(h -> h.frameOptions(f -> f.disable()));
+        return http.build();
+    }
+}
