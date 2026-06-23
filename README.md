@@ -100,10 +100,10 @@ Desarrollado como proyecto semestral para la asignatura **Desarrollo FullStack I
 | Método | Endpoint | Descripción |
 |--------|----------|-------------|
 | GET | `/api/v1/usuarios` | Listar todos los usuarios |
-| GET | `/api/v1/usuarios/{id}` | Buscar usuario por ID |
-| POST | `/api/v1/usuarios` | Crear usuario |
-| PUT | `/api/v1/usuarios/{id}` | Actualizar usuario |
-| DELETE | `/api/v1/usuarios/{id}` | Desactivar usuario |
+| GET | `/api/v1/usuarios/{id}` | Buscar cuenta por ID |
+| POST | `/api/v1/usuarios` | Crear cuenta |
+| PUT | `/api/v1/usuarios/{id}` | Actualizar cuenta |
+| DELETE | `/api/v1/usuarios/{id}` | Desactivar cuenta |
 
 ### auth-service — `http://localhost:8001`
 
@@ -199,7 +199,7 @@ Desarrollado como proyecto semestral para la asignatura **Desarrollo FullStack I
 |--------|----------|-------------|
 | GET | `/api/v1/sanciones` | Listar todas las sanciones |
 | GET | `/api/v1/sanciones/{id}` | Buscar sanción por ID |
-| GET | `/api/v1/sanciones/usuario/{usuarioId}` | Listar por usuario |
+| GET | `/api/v1/sanciones/cuenta/{usuarioId}` | Listar por cuenta |
 | GET | `/api/v1/sanciones/equipo/{equipoId}` | Listar por equipo |
 | POST | `/api/v1/sanciones` | Crear sanción |
 | PUT | `/api/v1/sanciones/{id}` | Actualizar sanción |
@@ -223,7 +223,7 @@ Desarrollado como proyecto semestral para la asignatura **Desarrollo FullStack I
 |--------|----------|-------------|
 | GET | `/api/v1/notificaciones` | Listar todas las notificaciones |
 | GET | `/api/v1/notificaciones/{id}` | Buscar notificación por ID |
-| GET | `/api/v1/notificaciones/usuario/{usuarioId}` | Listar por usuario |
+| GET | `/api/v1/notificaciones/cuenta/{usuarioId}` | Listar por cuenta |
 | POST | `/api/v1/notificaciones` | Crear notificación |
 | PATCH | `/api/v1/notificaciones/{id}/leer` | Marcar como leída |
 | DELETE | `/api/v1/notificaciones/{id}` | Archivar notificación |
@@ -234,7 +234,7 @@ Desarrollado como proyecto semestral para la asignatura **Desarrollo FullStack I
 
 Para probar el flujo completo del sistema, seguir este orden:
 
-### 1. Crear usuario
+### 1. Crear cuenta
 ```json
 POST http://localhost:8000/api/v1/users
 {
