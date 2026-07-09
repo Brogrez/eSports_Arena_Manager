@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
            throw  new UserException("User ya existente");
        }
        if(this.userRepository.findByNickname(user.getNickname()).isPresent()){
-           throw new UserException("User ya existe");
+           throw new UserException("User ya existente");
        }
        user.setFechaRegistro(LocalDate.now());
        user.setEstado("ACTIVO");
@@ -74,7 +74,7 @@ public class UserServiceImpl implements UserService {
             e.setEstado(user.getEstado());
             return this.userRepository.save(e);
         }).orElseThrow(
-                () -> new UserException("User no encontraod")
+                () -> new UserException("User no encontrado")
         );
     }
 }
