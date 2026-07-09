@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -41,11 +42,11 @@ public class Sanction {
 
     @NotNull(message = "El campo de fecha de inicio no puede ser vacio")
     @Column(name = "fecha_inicio", nullable = false)
-    private LocalDateTime fechaInicio;
+    private LocalDate fechaInicio;
 
     @NotNull(message = "El campo de fecha de fin no puede ser vacio")
     @Column(name = "fecha_fin", nullable = false)
-    private LocalDateTime fechaFin;
+    private LocalDate fechaFin;
 
     @NotBlank(message = "La severidad no puede estar vacía")
     @Column(nullable = false)
