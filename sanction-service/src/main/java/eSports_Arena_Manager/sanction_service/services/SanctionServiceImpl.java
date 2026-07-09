@@ -64,7 +64,7 @@ public class SanctionServiceImpl implements SanctionService {
     @Transactional
     @Override
     public void deleteById(Long id) {
-        this.sanctionRepository.findById(id);
+        this.sanctionRepository.deleteById(id);
     }
 
     @Override
